@@ -21,9 +21,11 @@
     "@fortawesome/angular-fontawesome": "^1.0.0",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@tailwindcss/postcss": "^4.0.8",
+    "axios": "^1.7.9",
     "gsap": "^3.12.7",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",
+    "sweetalert2": "^11.17.2",
     "tailwindcss": "^4.0.8",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

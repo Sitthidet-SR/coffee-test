@@ -148,8 +148,10 @@
 <!-- Registration Modal -->
 <app-register 
   [isOpen]="isRegisterModalOpen" 
-  (closeModalEvent)="closeRegisterModal()">
+  (closeModalEvent)="closeRegisterModal()"
+  (switchToLoginEvent)="openLoginModal()">
 </app-register>
+
 
 <!-- Login Modal -->
 <app-login 
