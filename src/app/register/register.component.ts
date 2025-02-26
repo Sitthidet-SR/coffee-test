@@ -23,17 +23,14 @@ export class RegisterComponent implements OnInit, OnChanges {
   submitted = false;
   loading = false;
 
-  // Icons
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   faClose = faClose;
   faUser = faUser;
 
-  // Password visibility toggles
   showPassword = false;
   showConfirmPassword = false;
 
-  // Image preview
   imagePreview: string | null = null;
   selectedFile: File | null = null;
 
@@ -62,7 +59,6 @@ export class RegisterComponent implements OnInit, OnChanges {
     }
   }
 
-  // Custom validator for password matching
   matchPassword(controlName: string, matchingControlName: string): ValidatorFn {
     return (controls: AbstractControl) => {
       const control = controls.get(controlName);
@@ -106,7 +102,6 @@ export class RegisterComponent implements OnInit, OnChanges {
     if (inputElement.files && inputElement.files.length > 0) {
       this.selectedFile = inputElement.files[0];
 
-      // Create preview URL
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result as string;

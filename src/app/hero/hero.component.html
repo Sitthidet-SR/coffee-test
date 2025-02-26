@@ -1,3 +1,112 @@
-<nav>
-    <app-navbar></app-navbar>
-</nav>
+<app-navbar />
+
+<!-- Hero Section with Full-width Background -->
+<section class="hero-section relative overflow-hidden">
+  <div class="hero-background absolute inset-0"></div>
+  
+  <div class="container mx-auto py-24 px-4 relative">
+    <div class="flex flex-col lg:flex-row items-center">
+      <!-- Left Side Content -->
+      <div class="w-full lg:w-1/2 z-10" data-gsap="fade-in">
+        <div class="space-y-6">
+          <span class="bg-amber-100 text-amber-500 px-4 py-1 rounded-full text-sm font-semibold inline-block">Most Popular</span>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
+            <span class="coffee-title">Signature </span> 
+            <span class="text-amber-500 coffee-title"> Coffee</span>
+          </h1>
+          <p class="text-gray-600 text-lg">Experience our award-winning signature blend, crafted from the finest beans around the world.</p>
+          
+          <!-- Stats Row - Improved Layout -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 py-6 my-2">
+            <div class="stat-item bg-white rounded-lg shadow-sm p-4 flex items-center">
+              <fa-icon [icon]="faStar" class="text-amber-400 text-xl mr-3"></fa-icon>
+              <div>
+                <p class="font-bold text-gray-900 text-lg">4.9/5</p>
+                <p class="text-sm text-gray-500">Customer Reviews</p>
+              </div>
+            </div>
+            
+            <div class="stat-item bg-white rounded-lg shadow-sm p-4 flex items-center">
+              <fa-icon [icon]="faHeart" class="text-red-400 text-xl mr-3"></fa-icon>
+              <div>
+                <p class="font-bold text-gray-900 text-lg">15K+</p>
+                <p class="text-sm text-gray-500">Likes</p>
+              </div>
+            </div>
+            
+            <div class="stat-item bg-white rounded-lg shadow-sm p-4 flex items-center">
+              <fa-icon [icon]="faMugHot" class="text-amber-500 text-xl mr-3"></fa-icon>
+              <div>
+                <p class="font-bold text-gray-900 text-lg">100K+</p>
+                <p class="text-sm text-gray-500">Cups Sold</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- CTA Button -->
+          <button class="cta-button bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 flex items-center gap-2">
+            <fa-icon [icon]="faShoppingCart"></fa-icon>
+            Order Now
+          </button>
+        </div>
+      </div>
+      
+      <!-- Right Side Image -->
+      <div class="w-full lg:w-1/2 relative mt-16 lg:mt-0" data-gsap="fade-in">
+        <div class="coffee-image-container relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-amber-100 to-amber-50 rounded-full transform scale-125 coffee-glow"></div>
+          <img src="assets/img/coffee1.png" alt="Signature Coffee" class="relative z-10 mx-auto coffee-image">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Services Cards Section - Positioned to overlap with hero -->
+  <div class="services-section relative -mt-32 z-20 pb-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-4 text-center">Our Services</h2>
+      <p class="text-gray-600 mb-12 max-w-2xl mx-auto text-center">Experience the ultimate coffee journey with our premium services</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Service Card 1 -->
+        <div class="service-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-amber-500">
+          <div class="service-icon w-16 h-16 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <fa-icon [icon]="faCoffee" class="text-2xl"></fa-icon>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Premium Brewing</h3>
+          <p class="text-gray-600 mb-4 text-center">Enjoy our artisanal brewing methods using top-grade equipment.</p>
+          <a href="#" class="text-amber-500 font-semibold flex items-center justify-center gap-2 hover:text-amber-600 learn-more-btn">
+            Learn More
+            <fa-icon [icon]="faArrowRight"></fa-icon>
+          </a>
+        </div>
+        
+        <!-- Service Card 2 -->
+        <div class="service-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-amber-500">
+          <div class="service-icon w-16 h-16 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <fa-icon [icon]="faTruck" class="text-2xl"></fa-icon>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Fast Delivery</h3>
+          <p class="text-gray-600 mb-4 text-center">Get your favorite coffee delivered to your doorstep in 30 minutes.</p>
+          <a href="#" class="text-amber-500 font-semibold flex items-center justify-center gap-2 hover:text-amber-600 learn-more-btn">
+            Learn More
+            <fa-icon [icon]="faArrowRight"></fa-icon>
+          </a>
+        </div>
+        
+        <!-- Service Card 3 -->
+        <div class="service-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-amber-500">
+          <div class="service-icon w-16 h-16 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <fa-icon [icon]="faGift" class="text-2xl"></fa-icon>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-center">Loyalty Program</h3>
+          <p class="text-gray-600 mb-4 text-center">Earn points with every purchase and redeem them for free coffee.</p>
+          <a href="#" class="text-amber-500 font-semibold flex items-center justify-center gap-2 hover:text-amber-600 learn-more-btn">
+            Learn More
+            <fa-icon [icon]="faArrowRight"></fa-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
