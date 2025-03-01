@@ -2,33 +2,52 @@
   <div class="container mx-auto px-4 py-3">
     <div class="flex justify-between items-center">
       <div class="navbar-logo flex items-center cursor-pointer">
-        <div class="logo-text-jack text-amber-500 font-bold text-2xl mr-2">Jack</div>
+        <div class="logo-text-jack text-amber-500 font-bold text-2xl mr-1">Jack</div>
+        <div class="logo-icon mr-1">☕</div>
         <div class="logo-text-coffee text-gray-800 font-semibold text-2xl">Coffee</div>
       </div>
 
-      <div class="hidden md:flex space-x-8">
-        <a href="#" class="nav-item text-gray-700 hover:text-amber-500 transition-colors duration-300">Home</a>
-        <a href="#" class="nav-item text-gray-700 hover:text-amber-500 transition-colors duration-300">Menu</a>
-        <a href="#" class="nav-item text-gray-700 hover:text-amber-500 transition-colors duration-300">Contact Us</a>
+      <div class="hidden md:flex space-x-8 mx-auto">
+        <a href="#"
+          class="nav-item text-gray-700 hover:text-amber-500 transition-colors duration-300 font-semibold text-lg border-b-2 border-transparent hover:border-amber-500 px-1 py-1">{{
+          'MENU.HOME' | translate }}</a>
+        <a href="#"
+          class="nav-item text-gray-700 hover:text-amber-500 transition-colors duration-300 font-semibold text-lg border-b-2 border-transparent hover:border-amber-500 px-1 py-1">{{
+          'MENU.MENU' | translate }}</a>
+        <a href="#"
+          class="nav-item text-gray-700 hover:text-amber-500 transition-colors duration-300 font-semibold text-lg border-b-2 border-transparent hover:border-amber-500 px-1 py-1">{{
+          'MENU.SERVICES' | translate }}</a>
+        <a href="#"
+          class="nav-item text-gray-700 hover:text-amber-500 transition-colors duration-300 font-semibold text-lg border-b-2 border-transparent hover:border-amber-500 px-1 py-1">{{
+          'MENU.ABOUT_US' | translate }}</a>
+        <a href="#"
+          class="nav-item text-gray-700 hover:text-amber-500 transition-colors duration-300 font-semibold text-lg border-b-2 border-transparent hover:border-amber-500 px-1 py-1">{{
+          'MENU.CONTACT_US' | translate }}</a>
       </div>
 
       <div class="hidden md:flex items-center space-x-6">
-        <div class="search-container bg-gray-100 rounded-full overflow-hidden">
-          <div class="flex items-center px-4 py-2 w-64">
-            <input id="searchInput" type="text" [(ngModel)]="searchQuery" placeholder="Search..."
-              class="w-full bg-transparent outline-none" (keyup.enter)="searchSubmit()">
-            <button (click)="searchSubmit()" class="ml-2 text-gray-500 hover:text-amber-500">
-              <fa-icon [icon]="faSearch"></fa-icon>
-            </button>
+        <div class="search-container-wrapper relative">
+          <button *ngIf="!isSearchOpen" (click)="toggleSearch()"
+            class="nav-icon search-icon text-gray-700 hover:text-amber-500 transition-colors duration-300">
+            <fa-icon [icon]="faSearch"></fa-icon>
+          </button>
+
+          <div *ngIf="isSearchOpen" class="search-container bg-white rounded-full overflow-hidden flex shadow-lg">
+            <div class="flex items-center px-4 py-2 w-64 animate-search-expand">
+              <input id="searchInput" type="text" [(ngModel)]="searchQuery"
+                [placeholder]="'SEARCH.PLACEHOLDER' | translate" class="w-full bg-transparent outline-none border-none"
+                (keyup.enter)="searchSubmit()" #searchInput>
+              <button (click)="searchSubmit()" class="ml-2 text-amber-500 hover:text-amber-600">
+                <fa-icon [icon]="faSearch"></fa-icon>
+              </button>
+              <button (click)="toggleSearch()" class="ml-2 text-gray-500 hover:text-amber-500">
+                <fa-icon [icon]="faTimes"></fa-icon>
+              </button>
+            </div>
           </div>
         </div>
 
-        <button (click)="toggleLanguage()"
-          class="nav-icon language-icon text-gray-700 hover:text-amber-500 transition-colors duration-300"
-          aria-label="Toggle Language">
-          <fa-icon [icon]="faLanguage"></fa-icon>
-          <span class="ml-1 text-sm">{{ isEnglish ? 'EN' : 'TH' }}</span>
-        </button>
+        <app-language-switcher></app-language-switcher>
 
         <button class="nav-icon text-gray-700 hover:text-amber-500 transition-colors duration-300 relative"
           aria-label="Shopping Cart">
@@ -42,7 +61,8 @@
             class="nav-icon user-button text-gray-700 hover:text-amber-500 transition-colors duration-300"
             aria-label="User Account">
             <ng-container *ngIf="isLoggedIn && userProfile; else defaultUserIcon">
-              <img [src]="userProfile" alt="Profile" class="h-10 w-10 rounded-full object-cover border-2 border-amber-500">
+              <img [src]="userProfile" alt="Profile"
+                class="h-10 w-10 rounded-full object-cover border-2 border-amber-500">
             </ng-container>
             <ng-template #defaultUserIcon>
               <fa-icon [icon]="faUser"></fa-icon>
@@ -55,7 +75,7 @@
               <button (click)="logout()"
                 class="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-amber-50 hover:text-amber-500 transition-colors duration-200">
                 <fa-icon [icon]="faSignOutAlt" class="mr-2"></fa-icon>
-                <span>{{ isEnglish ? 'Logout' : 'ออกจากระบบ' }}</span>
+                <span>{{ 'USER_MENU.LOGOUT' | translate }}</span>
               </button>
             </ng-container>
 
@@ -63,12 +83,12 @@
               <button (click)="openLoginModal()"
                 class="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-amber-50 hover:text-amber-500 transition-colors duration-200">
                 <fa-icon [icon]="faSignInAlt" class="mr-2"></fa-icon>
-                <span>{{ isEnglish ? 'Login' : 'เข้าสู่ระบบ' }}</span>
+                <span>{{ 'USER_MENU.LOGIN' | translate }}</span>
               </button>
               <button (click)="openRegisterModal()"
                 class="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-amber-50 hover:text-amber-500 transition-colors duration-200">
                 <fa-icon [icon]="faUserPlus" class="mr-2"></fa-icon>
-                <span>{{ isEnglish ? 'Sign Up' : 'สมัครสมาชิก' }}</span>
+                <span>{{ 'USER_MENU.SIGN_UP' | translate }}</span>
               </button>
             </ng-template>
           </div>
@@ -76,6 +96,10 @@
       </div>
 
       <div class="md:hidden flex items-center space-x-4">
+        <button (click)="toggleMobileSearch()" class="nav-icon text-gray-700" aria-label="Search">
+          <fa-icon [icon]="faSearch"></fa-icon>
+        </button>
+
         <button class="nav-icon text-gray-700 relative" aria-label="Shopping Cart">
           <fa-icon [icon]="faShoppingCart"></fa-icon>
           <span
@@ -89,41 +113,50 @@
     </div>
   </div>
 
+  <div *ngIf="isMobileSearchOpen"
+    class="mobile-search-container md:hidden bg-white shadow-inner py-3 px-4 animate-fade-in">
+    <div class="flex items-center rounded-full bg-gray-100 overflow-hidden">
+      <input type="text" [(ngModel)]="searchQuery" [placeholder]="'SEARCH.PLACEHOLDER' | translate"
+        class="w-full px-4 py-2 outline-none bg-transparent" (keyup.enter)="searchSubmit()">
+      <button (click)="searchSubmit()" class="px-4 text-amber-500 hover:text-amber-600">
+        <fa-icon [icon]="faSearch"></fa-icon>
+      </button>
+      <button (click)="toggleMobileSearch()" class="px-4 text-gray-500 hover:text-amber-500">
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </button>
+    </div>
+  </div>
+
   <div *ngIf="isMobileMenuOpen" class="mobile-menu md:hidden bg-white shadow-lg py-4">
     <div class="container mx-auto px-4">
       <div class="flex flex-col space-y-4">
-        <div class="flex items-center border border-gray-300 rounded-full px-4 py-2">
-          <input type="text" [(ngModel)]="searchQuery" placeholder="Search..." class="w-full outline-none"
-            (keyup.enter)="searchSubmit()">
-          <button (click)="searchSubmit()" class="ml-2 text-gray-500 hover:text-amber-500">
-            <fa-icon [icon]="faSearch"></fa-icon>
-          </button>
-        </div>
-
-        <a href="#" class="text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2">Home</a>
-        <a href="#" class="text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2">Menu</a>
-        <a href="#" class="text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2">Contact Us</a>
+        <a href="#" class="text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2 font-semibold">{{
+          'MENU.HOME' | translate }}</a>
+        <a href="#" class="text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2 font-semibold">{{
+          'MENU.MENU' | translate }}</a>
+        <a href="#" class="text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2 font-semibold">{{
+          'MENU.SERVICES' | translate }}</a>
+        <a href="#" class="text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2 font-semibold">{{
+          'MENU.ABOUT_US' | translate }}</a>
+        <a href="#" class="text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2 font-semibold">{{
+          'MENU.CONTACT_US' | translate }}</a>
 
         <div class="pt-2 border-t border-gray-200">
           <div class="flex flex-col space-y-2 mt-4">
-            <button (click)="toggleLanguage()"
-              class="flex items-center text-gray-700 hover:text-amber-500 transition-colors duration-300"
-              aria-label="Toggle Language">
-              <fa-icon [icon]="faLanguage"></fa-icon>
-              <span class="ml-2">{{ isEnglish ? 'English' : 'Thai' }}</span>
-            </button>
+            <app-language-switcher></app-language-switcher>
 
             <ng-container *ngIf="isLoggedIn; else mobileNotLoggedIn">
               <div class="flex items-center py-2 space-x-3">
                 <div class="flex-shrink-0">
-                  <img [src]="userProfile" alt="Profile" class="h-8 w-8 rounded-full object-cover border-2 border-amber-500">
+                  <img [src]="userProfile" alt="Profile"
+                    class="h-8 w-8 rounded-full object-cover border-2 border-amber-500">
                 </div>
-                <span class="text-gray-700 truncate">{{ isEnglish ? 'Welcome' : 'ยินดีต้อนรับ' }}</span>
+                <span class="text-gray-700 truncate">{{ 'USER_MENU.WELCOME' | translate }}</span>
               </div>
               <button (click)="logout()"
                 class="flex items-center text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2">
                 <fa-icon [icon]="faSignOutAlt" class="mr-2"></fa-icon>
-                <span>{{ isEnglish ? 'Logout' : 'ออกจากระบบ' }}</span>
+                <span>{{ 'USER_MENU.LOGOUT' | translate }}</span>
               </button>
             </ng-container>
 
@@ -131,13 +164,13 @@
               <button (click)="openLoginModal()"
                 class="flex items-center text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2">
                 <fa-icon [icon]="faSignInAlt" class="mr-2"></fa-icon>
-                <span>{{ isEnglish ? 'Login' : 'เข้าสู่ระบบ' }}</span>
+                <span>{{ 'USER_MENU.LOGIN' | translate }}</span>
               </button>
 
               <button (click)="openRegisterModal()"
                 class="flex items-center text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2">
                 <fa-icon [icon]="faUserPlus" class="mr-2"></fa-icon>
-                <span>{{ isEnglish ? 'Sign Up' : 'สมัครสมาชิก' }}</span>
+                <span>{{ 'USER_MENU.SIGN_UP' | translate }}</span>
               </button>
             </ng-template>
           </div>

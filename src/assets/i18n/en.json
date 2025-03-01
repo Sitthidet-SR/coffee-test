@@ -1,0 +1,18 @@
+{
+    "MENU": {
+      "HOME": "Home",
+      "MENU": "Menu",
+      "SERVICES": "Services",
+      "ABOUT_US": "About Us",
+      "CONTACT_US": "Contact Us"
+    },
+    "USER_MENU": {
+      "LOGIN": "Login",
+      "LOGOUT": "Logout",
+      "SIGN_UP": "Sign Up",
+      "WELCOME": "Welcome"
+    },
+    "SEARCH": {
+      "PLACEHOLDER": "Search..."
+    }
+  }

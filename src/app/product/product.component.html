@@ -1,0 +1,39 @@
+<section class="products-section">
+    <div class="container">
+      <h2 class="section-title">Our Products</h2>
+      
+      <!-- Loading State -->
+      <div class="loading-container" *ngIf="loading">
+        <div class="spinner"></div>
+        <p>Loading products...</p>
+      </div>
+      
+      <!-- Error State -->
+      <div class="error-message" *ngIf="error">
+        <p>{{ error }}</p>
+        <button (click)="fetchProducts()">Try Again</button>
+      </div>
+      
+      <!-- Products Grid -->
+      <div class="products-grid" *ngIf="!loading && !error">
+        <div class="product-card" *ngFor="let product of products">
+          <div class="product-image">
+            <img [src]="getImageUrl(product.image)" [alt]="product.name" class="w-full h-full object-contain transform hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-description">{{ product.description }}</p>
+            <div class="product-price">{{ formatPrice(product.price) }}</div>
+            <button class="add-to-cart-btn" (click)="addToCart(product, $event)">
+              <i class="fas fa-shopping-cart"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="!loading && !error && products.length === 0">
+        <p>No products available at the moment.</p>
+      </div>
+    </div>
+  </section>

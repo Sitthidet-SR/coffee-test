@@ -1,10 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-:host {
-  font-family: 'Poppins', sans-serif;
-  display: block;
-}
-
 /* Hero Full-screen Background */
 .hero-section {
   position: relative;
@@ -128,6 +121,77 @@
   transform: translateY(-5px);
 }
 
+/* Product Cards and Carousel */
+.popular-carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.product-card {
+  flex-shrink: 0;
+}
+
+.slider-nav button {
+  transition: background-color 0.3s ease;
+}
+
+.slider-nav button:hover {
+  transform: scale(1.2);
+}
+
+/* Animation for product images */
+.product-card img {
+  transition: transform 0.5s ease-in-out;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+/* Product Cards - Adjust image and text sizing */
+.product-card img {
+  transition: transform 0.5s ease-in-out;
+  height: 160px; /* Fixed height to ensure consistency */
+}
+
+.product-card h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.25rem; /* Larger font size for product name */
+  color: #1a202c; /* Dark gray color for better readability */
+}
+
+.product-card p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 40px; /* Ensure space for at least 2 lines */
+  color: #4a5568; /* Slightly lighter gray for description */
+  font-size: 0.875rem; /* Smaller font size for description */
+}
+
+/* Hover effect for product cards */
+.product-card:hover h3 {
+  color: #d97706; /* Change color on hover for better interaction */
+}
+
+.product-card:hover p {
+  color: #6b7280; /* Change color on hover for better interaction */
+}
+/* Animated loading spinner */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .services-section {
@@ -136,5 +200,9 @@
   
   .hero-section {
     min-height: 120vh;
+  }
+  
+  .product-card {
+    width: 85vw;
   }
 }

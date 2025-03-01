@@ -1,0 +1,7 @@
+footer a {
+  transition: color 0.3s ease;
+}
+
+.relative .absolute {
+  height: 1px; /* ปรับความหนาของเส้น */
+}

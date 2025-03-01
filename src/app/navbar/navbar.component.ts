@@ -1,36 +1,52 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+// src/app/navbar/navbar.component.ts
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faShoppingCart, faUser, faBars, faLanguage, faSearch, faTimes, faSignInAlt, faUserPlus, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faUser, faBars, faSearch, faTimes, faSignInAlt, faUserPlus, faSignOutAlt, faCoffee, faLanguage } from '@fortawesome/free-solid-svg-icons';
 import { gsap } from 'gsap';
 import { RegisterComponent } from '../register/register.component';
 import { LoginComponent } from '../login/login.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../services/language.service';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, FormsModule, RegisterComponent, LoginComponent],
+  imports: [
+    CommonModule, 
+    FontAwesomeModule, 
+    FormsModule, 
+    RegisterComponent, 
+    LoginComponent,
+    TranslateModule,
+    LanguageSwitcherComponent
+  ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild('searchInput') searchInput!: ElementRef;
+
   faShoppingCart = faShoppingCart;
   faUser = faUser;
   faBars = faBars;
-  faLanguage = faLanguage;
   faSearch = faSearch;
   faTimes = faTimes;
   faSignInAlt = faSignInAlt;
   faUserPlus = faUserPlus;
   faSignOutAlt = faSignOutAlt;
+  faCoffee = faCoffee;
+  faLanguage = faLanguage;
 
   isMobileMenuOpen = false;
-  isEnglish = true;
+  isMobileSearchOpen = false;
   searchQuery = '';
   isUserMenuOpen = false;
   isRegisterModalOpen = false;
   isLoginModalOpen = false;
+  isSearchOpen = false;
 
   isLoggedIn = false;
   userProfile: string | null = null;
@@ -38,14 +54,16 @@ export class NavbarComponent implements OnInit {
   isMobile = false;
 
   logoTimeline: gsap.core.Timeline | null = null;
+  activeMenuIndex: number = 0;
 
-  constructor() { }
+  constructor(private languageService: LanguageService) { }
 
   ngOnInit(): void {
     this.checkScreenSize();
     this.setupInitialAnimations();
     this.setupLogoAnimation();
     this.checkLoginStatus();
+    this.setupMenuAnimations();
   }
 
   checkLoginStatus(): void {
@@ -100,6 +118,7 @@ export class NavbarComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
+    // Handle user menu clicks
     const userMenuElement = document.querySelector('.user-menu-container');
     const userButtonElement = document.querySelector('.user-button');
 
@@ -110,6 +129,13 @@ export class NavbarComponent implements OnInit {
       !userButtonElement.contains(event.target as Node)) {
       this.isUserMenuOpen = false;
     }
+    
+    const searchContainerWrapper = document.querySelector('.search-container-wrapper');
+    if (this.isSearchOpen && 
+        searchContainerWrapper && 
+        !searchContainerWrapper.contains(event.target as Node)) {
+      this.isSearchOpen = false;
+    }
   }
 
   setupInitialAnimations(): void {
@@ -117,8 +143,8 @@ export class NavbarComponent implements OnInit {
       opacity: 0,
       y: -10,
       stagger: 0.1,
-      duration: 0.4,
-      ease: 'power2.out',
+      duration: 0.6,
+      ease: 'back.out(1.7)',
       delay: 0.2
     });
 
@@ -126,67 +152,168 @@ export class NavbarComponent implements OnInit {
       opacity: 0,
       x: 10,
       stagger: 0.1,
-      duration: 0.4,
+      duration: 0.5,
       ease: 'power2.out',
       delay: 0.4
     });
+  }
 
-    gsap.from('.search-container', {
-      opacity: 0,
-      y: -10,
-      duration: 0.5,
-      ease: 'power2.out',
-      delay: 0.3
+  setupMenuAnimations(): void {
+    const navItems = document.querySelectorAll('.nav-item');
+    
+    navItems.forEach((item, index) => {
+      item.addEventListener('mouseenter', () => {
+        gsap.to(item, {
+          scale: 1.1,
+          duration: 0.3,
+          ease: 'power1.out'
+        });
+      });
+      
+      item.addEventListener('mouseleave', () => {
+        gsap.to(item, {
+          scale: 1,
+          duration: 0.3,
+          ease: 'power1.in'
+        });
+      });
     });
   }
 
   setupLogoAnimation(): void {
-    this.logoTimeline = gsap.timeline({ repeat: -1, repeatDelay: 2 });
+    this.logoTimeline = gsap.timeline({ repeat: -1, repeatDelay: 1.5 });
 
+    // Jack Coffee animation sequence
     this.logoTimeline.to('.logo-text-jack', {
-      y: -5,
-      duration: 1,
-      ease: 'power1.inOut'
+      y: -8,
+      duration: 0.8,
+      ease: 'elastic.out(1.2, 0.5)'
     });
 
     this.logoTimeline.to('.logo-text-jack', {
       y: 0,
-      duration: 1,
-      ease: 'power1.inOut'
+      duration: 0.8,
+      ease: 'elastic.out(1.2, 0.5)'
     });
 
+    // Coffee icon bounce
+    this.logoTimeline.to('.logo-icon', {
+      y: -10,
+      rotation: -15,
+      duration: 0.5,
+      ease: 'power2.out'
+    }, "-=0.3");
+
+    this.logoTimeline.to('.logo-icon', {
+      y: 0,
+      rotation: 0,
+      duration: 0.8,
+      ease: 'elastic.out(1.2, 0.3)'
+    });
+
+    // Coffee text animation
     this.logoTimeline.to('.logo-text-coffee', {
-      scale: 1.05,
-      duration: 1,
-      ease: 'power1.inOut'
+      scale: 1.1,
+      duration: 0.7,
+      ease: 'power2.inOut'
     }, "-=0.5");
 
     this.logoTimeline.to('.logo-text-coffee', {
       scale: 1,
-      duration: 1,
-      ease: 'power1.inOut'
+      duration: 0.7,
+      ease: 'power2.inOut'
     });
 
-    this.logoTimeline.to(['.logo-text-jack', '.logo-text-coffee'], {
-      filter: 'brightness(1.2)',
+    // Color pulse animation
+    this.logoTimeline.to('.logo-text-jack', {
+      color: '#f59e0b',
+      textShadow: '0 0 8px rgba(245, 158, 11, 0.5)',
+      duration: 0.8,
+      ease: 'sine.inOut'
+    }, "-=0.3");
+
+    this.logoTimeline.to('.logo-text-jack', {
+      color: '#f97316',
+      textShadow: 'none',
       duration: 0.8,
       ease: 'sine.inOut'
     });
 
-    this.logoTimeline.to(['.logo-text-jack', '.logo-text-coffee'], {
-      filter: 'brightness(1)',
+    this.logoTimeline.to('.logo-text-coffee', {
+      color: '#44403c',
+      fontWeight: '700',
+      duration: 0.8,
+      ease: 'sine.inOut'
+    }, "-=0.8");
+
+    this.logoTimeline.to('.logo-text-coffee', {
+      color: '#1f2937',
+      fontWeight: '600',
       duration: 0.8,
       ease: 'sine.inOut'
     });
   }
 
+  toggleSearch(): void {
+    this.isSearchOpen = !this.isSearchOpen;
+    if (this.isSearchOpen) {
+      // Focus on search input after animation
+      setTimeout(() => {
+        if (this.searchInput) {
+          this.searchInput.nativeElement.focus();
+        }
+      }, 300);
+      
+      // Add animation when opening search
+      gsap.fromTo('.search-container',
+        { opacity: 0, width: 0 },
+        { opacity: 1, width: 'auto', duration: 0.3, ease: 'power2.out' }
+      );
+    }
+  }
+
+  toggleMobileSearch(): void {
+    this.isMobileSearchOpen = !this.isMobileSearchOpen;
+    
+    if (this.isMobileSearchOpen) {
+      // Close the mobile menu if it's open
+      if (this.isMobileMenuOpen) {
+        this.isMobileMenuOpen = false;
+        gsap.to('.mobile-menu', { opacity: 0, y: -20, duration: 0.3 });
+      }
+      
+      // Animate the mobile search opening
+      gsap.fromTo('.mobile-search-container',
+        { opacity: 0, y: -10 },
+        { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
+      );
+      
+      // Focus on the search input after animation completes
+      setTimeout(() => {
+        const mobileSearchInput = document.querySelector('.mobile-search-container input');
+        if (mobileSearchInput) {
+          (mobileSearchInput as HTMLInputElement).focus();
+        }
+      }, 300);
+    } else {
+      // Animate the mobile search closing
+      gsap.to('.mobile-search-container', { opacity: 0, y: -10, duration: 0.3 });
+    }
+  }
+
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    
+    // Close the mobile search if it's open
+    if (this.isMobileSearchOpen && this.isMobileMenuOpen) {
+      this.isMobileSearchOpen = false;
+      gsap.to('.mobile-search-container', { opacity: 0, y: -10, duration: 0.3 });
+    }
 
     if (this.isMobileMenuOpen) {
       gsap.fromTo('.mobile-menu',
         { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
+        { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }
       );
     } else {
       gsap.to('.mobile-menu', { opacity: 0, y: -20, duration: 0.3 });
@@ -201,23 +328,27 @@ export class NavbarComponent implements OnInit {
       setTimeout(() => {
         gsap.fromTo('.user-menu',
           { opacity: 0, y: -10 },
-          { opacity: 1, y: 0, duration: 0.2, ease: 'power2.out' }
+          { opacity: 1, y: 0, duration: 0.3, ease: 'power3.out' }
         );
       }, 50);
     }
   }
 
   toggleLanguage(): void {
-    this.isEnglish = !this.isEnglish;
-
+    // แทนที่จะใช้ this.isEnglish = !this.isEnglish
+    this.languageService.toggleLanguage();
+  
     gsap.fromTo('.language-icon',
       { rotate: 0 },
-      { rotate: 360, duration: 0.5, ease: 'power1.out' }
+      { rotate: 360, duration: 0.7, ease: 'back.out(1.5)' }
     );
   }
 
   searchSubmit(): void {
     console.log('Searching for:', this.searchQuery);
+    // Close search after submit
+    this.isSearchOpen = false;
+    this.isMobileSearchOpen = false;
     this.searchQuery = '';
   }
 
@@ -239,5 +370,9 @@ export class NavbarComponent implements OnInit {
   closeRegisterModal() {
     this.isRegisterModalOpen = false;
     this.checkLoginStatus();
+  }
+
+  get isEnglish(): boolean {
+    return this.languageService.isEnglish();
   }
 }

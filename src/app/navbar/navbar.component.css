@@ -40,3 +40,47 @@
     transform: translateY(0);
   }
 }
+
+@keyframes searchExpand {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-search-expand {
+  animation: searchExpand 0.3s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.search-icon {
+  transition: all 0.3s ease;
+}
+
+.search-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 6px -1px rgba(251, 146, 60, 0.3);
+}
+
+.search-container {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(251, 146, 60, 0.3);
+}
