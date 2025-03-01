@@ -1,4 +1,3 @@
-// src/app/navbar/navbar.component.ts
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -118,7 +117,6 @@ export class NavbarComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
-    // Handle user menu clicks
     const userMenuElement = document.querySelector('.user-menu-container');
     const userButtonElement = document.querySelector('.user-button');
 
@@ -183,7 +181,6 @@ export class NavbarComponent implements OnInit {
   setupLogoAnimation(): void {
     this.logoTimeline = gsap.timeline({ repeat: -1, repeatDelay: 1.5 });
 
-    // Jack Coffee animation sequence
     this.logoTimeline.to('.logo-text-jack', {
       y: -8,
       duration: 0.8,
@@ -196,7 +193,6 @@ export class NavbarComponent implements OnInit {
       ease: 'elastic.out(1.2, 0.5)'
     });
 
-    // Coffee icon bounce
     this.logoTimeline.to('.logo-icon', {
       y: -10,
       rotation: -15,
@@ -211,7 +207,6 @@ export class NavbarComponent implements OnInit {
       ease: 'elastic.out(1.2, 0.3)'
     });
 
-    // Coffee text animation
     this.logoTimeline.to('.logo-text-coffee', {
       scale: 1.1,
       duration: 0.7,
@@ -224,7 +219,6 @@ export class NavbarComponent implements OnInit {
       ease: 'power2.inOut'
     });
 
-    // Color pulse animation
     this.logoTimeline.to('.logo-text-jack', {
       color: '#f59e0b',
       textShadow: '0 0 8px rgba(245, 158, 11, 0.5)',
@@ -257,14 +251,12 @@ export class NavbarComponent implements OnInit {
   toggleSearch(): void {
     this.isSearchOpen = !this.isSearchOpen;
     if (this.isSearchOpen) {
-      // Focus on search input after animation
       setTimeout(() => {
         if (this.searchInput) {
           this.searchInput.nativeElement.focus();
         }
       }, 300);
       
-      // Add animation when opening search
       gsap.fromTo('.search-container',
         { opacity: 0, width: 0 },
         { opacity: 1, width: 'auto', duration: 0.3, ease: 'power2.out' }
@@ -276,19 +268,16 @@ export class NavbarComponent implements OnInit {
     this.isMobileSearchOpen = !this.isMobileSearchOpen;
     
     if (this.isMobileSearchOpen) {
-      // Close the mobile menu if it's open
       if (this.isMobileMenuOpen) {
         this.isMobileMenuOpen = false;
         gsap.to('.mobile-menu', { opacity: 0, y: -20, duration: 0.3 });
       }
       
-      // Animate the mobile search opening
       gsap.fromTo('.mobile-search-container',
         { opacity: 0, y: -10 },
         { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
       );
       
-      // Focus on the search input after animation completes
       setTimeout(() => {
         const mobileSearchInput = document.querySelector('.mobile-search-container input');
         if (mobileSearchInput) {
@@ -296,7 +285,6 @@ export class NavbarComponent implements OnInit {
         }
       }, 300);
     } else {
-      // Animate the mobile search closing
       gsap.to('.mobile-search-container', { opacity: 0, y: -10, duration: 0.3 });
     }
   }
@@ -304,7 +292,6 @@ export class NavbarComponent implements OnInit {
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
     
-    // Close the mobile search if it's open
     if (this.isMobileSearchOpen && this.isMobileMenuOpen) {
       this.isMobileSearchOpen = false;
       gsap.to('.mobile-search-container', { opacity: 0, y: -10, duration: 0.3 });
@@ -335,7 +322,6 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleLanguage(): void {
-    // แทนที่จะใช้ this.isEnglish = !this.isEnglish
     this.languageService.toggleLanguage();
   
     gsap.fromTo('.language-icon',
@@ -346,7 +332,6 @@ export class NavbarComponent implements OnInit {
 
   searchSubmit(): void {
     console.log('Searching for:', this.searchQuery);
-    // Close search after submit
     this.isSearchOpen = false;
     this.isMobileSearchOpen = false;
     this.searchQuery = '';

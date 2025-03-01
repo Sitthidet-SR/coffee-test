@@ -1,4 +1,3 @@
-// src/app/components/language-switcher/language-switcher.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -38,8 +37,7 @@ export class LanguageSwitcherComponent implements OnInit {
     const newLang = this.isEnglish ? 'th' : 'en';
     this.languageService.changeLanguage(newLang);
     this.isEnglish = newLang === 'en';
-    
-    // เพิ่ม animation เหมือนที่มีอยู่เดิม
+
     gsap.fromTo('.language-icon',
       { rotate: 0 },
       { rotate: 360, duration: 0.7, ease: 'back.out(1.5)' }
