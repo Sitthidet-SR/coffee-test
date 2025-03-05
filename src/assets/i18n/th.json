@@ -10,9 +10,235 @@
       "LOGIN": "เข้าสู่ระบบ",
       "LOGOUT": "ออกจากระบบ",
       "SIGN_UP": "สมัครสมาชิก",
-      "WELCOME": "ยินดีต้อนรับ"
+      "WELCOME": "ยินดีต้อนรับ",
+      "PROFILE": "โปรไฟล์",
+      "EDIT_PROFILE": "แก้ไขโปรไฟล์",
+      "ORDERS": "ประวัติการสั่งซื้อ",
+      "SETTINGS": "ตั้งค่า",
+      "LANGUAGE": {
+        "TH": "ไทย",
+        "EN": "English"
+      },
+      "ADMIN": "จัดการระบบ"
     },
     "SEARCH": {
       "PLACEHOLDER": "ค้นหา..."
+    },
+    "PRODUCTS": {
+      "TITLE": "สินค้า",
+      "MENU": "เมนู",
+      "CATEGORIES": {
+        "ALL": "ทั้งหมด",
+        "COFFEE": "กาแฟ",
+        "TEA": "ชา",
+        "BAKERY": "เบเกอรี่",
+        "DESSERT": "ของหวาน"
+      },
+      "LOADING": "กำลังโหลดสินค้า...",
+      "NO_PRODUCTS": "ไม่มีสินค้าในหมวดหมู่นี้ กรุณาเลือกหมวดหมู่อื่น",
+      "TRY_AGAIN": "ลองใหม่อีกครั้ง",
+      "ADD_TO_CART": "เพิ่ม",
+      "ADDED_TO_CART": "เพิ่มแล้ว",
+      "REVIEWS": "รีวิว",
+      "ERROR": {
+        "FETCH": "ไม่สามารถโหลดสินค้าได้ กรุณาลองใหม่อีกครั้ง"
+      }
+    },
+    "HERO": {
+      "BADGE": "ยอดนิยม",
+      "TITLE": {
+        "SIGNATURE": "ซิกเนเจอร์",
+        "COFFEE": "กาแฟ"
+      },
+      "DESCRIPTION": "สัมผัสประสบการณ์กาแฟซิกเนเจอร์ที่ได้รับรางวัล คัดสรรจากเมล็ดกาแฟชั้นเยี่ยมจากทั่วโลก",
+      "STATS": {
+        "REVIEWS": "รีวิว",
+        "LIKES": "ถูกใจ",
+        "SALES": "ยอดขาย"
+      },
+      "CTA": "สั่งเลย",
+      "POPULAR": {
+        "TITLE": "เมนู",
+        "MENU": "ยอดนิยม",
+        "DESCRIPTION": "ค้นพบเมนูกาแฟและขนมที่คัดสรรพิเศษสำหรับคุณ"
+      },
+      "CAROUSEL": {
+        "PRICE": "฿ {{price}}",
+        "ORDER_NOW": "สั่งเลย",
+        "REVIEWS": "รีวิว"
+      }
+    },
+    "FOOTER": {
+      "BRAND": {
+        "NAME": "แจ๊ค คอฟฟี่",
+        "TAGLINE": "กาแฟสดคู่วันของคุณ"
+      },
+      "QUICK_LINKS": "ลิงก์ด่วน",
+      "RESOURCES": "แหล่งข้อมูล",
+      "NEWSLETTER": {
+        "TITLE": "จดหมายข่าว",
+        "DESCRIPTION": "ติดตามข่าวสารและโปรโมชันล่าสุด",
+        "PLACEHOLDER": "กรอกอีเมลของคุณ",
+        "BUTTON": "ติดตาม"
+      },
+      "COPYRIGHT": "ลิขสิทธิ์ ©{{year}} แจ๊ค คอฟฟี่ สงวนลิขสิทธิ์",
+      "PRIVACY_POLICY": "นโยบายความเป็นส่วนตัว",
+      "TERMS": "ข้อกำหนดและเงื่อนไข"
+    },
+    "CART": {
+      "TITLE": "ตะกร้าสินค้า",
+      "EMPTY": "ไม่มีสินค้าในตะกร้า",
+      "TOTAL": "ยอดรวม",
+      "CHECKOUT": "ชำระเงิน",
+      "REMOVE": "ลบสินค้า",
+      "QUANTITY": "จำนวน",
+      "PRICE": "ราคา",
+      "ADDED_SUCCESS": "เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว",
+      "UPDATE_SUCCESS": "อัพเดทตะกร้าสำเร็จ",
+      "REMOVE_SUCCESS": "ลบสินค้าออกจากตะกร้าเรียบร้อยแล้ว",
+      "ERROR": {
+        "ADD": "ไม่สามารถเพิ่มสินค้าลงตะกร้าได้",
+        "UPDATE": "ไม่สามารถอัพเดทตะกร้าได้",
+        "REMOVE": "ไม่สามารถลบสินค้าออกจากตะกร้าได้",
+        "LOAD": "ไม่สามารถโหลดข้อมูลตะกร้าได้",
+        "LOGIN_REQUIRED": "กรุณาเข้าสู่ระบบ",
+        "LOGIN_REQUIRED_TEXT": "คุณต้องเข้าสู่ระบบก่อนเพิ่มสินค้าในตะกร้า"
+      }
+    },
+    "COMMON": {
+      "OK": "ตกลง",
+      "CANCEL": "ยกเลิก",
+      "SUCCESS": "สำเร็จ",
+      "ERROR": "เกิดข้อผิดพลาด",
+      "VIEW_ORDERS": "ดูคำสั่งซื้อ",
+      "CONTINUE_SHOPPING": "เลือกซื้อสินค้าต่อ",
+      "SAVING": "กำลังบันทึก..."
+    },
+    "CHECKOUT": {
+      "TITLE": "ชำระเงิน",
+      "ORDER_SUMMARY": "สรุปรายการสั่งซื้อ",
+      "QUANTITY": "จำนวน",
+      "TOTAL": "ยอดรวม",
+      "PAYMENT_METHOD": "วิธีการชำระเงิน",
+      "CREDIT_CARD": "บัตรเครดิต/เดบิต",
+      "CASH": "เงินสด",
+      "PROCEED_TO_PAYMENT": "ดำเนินการชำระเงิน"
+    },
+    "ORDER": {
+      "SUCCESS": "สั่งซื้อสำเร็จ",
+      "CREATED_SUCCESS": "คำสั่งซื้อของคุณถูกสร้างเรียบร้อยแล้ว",
+      "CASH_MESSAGE": "กรุณาชำระเงินเมื่อได้รับสินค้า",
+      "PROMPTPAY": {
+        "TITLE": "ชำระเงินด้วย PromptPay",
+        "SCAN_MESSAGE": "สแกน QR Code เพื่อชำระเงิน",
+        "INSTRUCTION": "1. เปิดแอพธนาคารของคุณ\n2. สแกน QR Code\n3. ตรวจสอบจำนวนเงินให้ถูกต้อง\n4. ยืนยันการชำระเงิน",
+        "PAID_BUTTON": "ฉันชำระเงินแล้ว"
+      },
+      "ERROR": {
+        "CREATE": "ไม่สามารถดำเนินการสั่งซื้อได้",
+        "PAYMENT_UPDATE": "ไม่สามารถอัพเดทสถานะการชำระเงินได้",
+        "TRY_AGAIN": "กรุณาลองใหม่อีกครั้ง"
+      }
+    },
+    "ORDERS": {
+      "TITLE": "ประวัติคำสั่งซื้อ",
+      "NO_ORDERS": "คุณยังไม่มีคำสั่งซื้อ",
+      "START_SHOPPING": "เริ่มช้อปปิ้ง",
+      "ORDER_ID": "หมายเลขคำสั่งซื้อ",
+      "ORDERED_ON": "วันที่สั่งซื้อ",
+      "QUANTITY": "จำนวน",
+      "PAYMENT_METHOD": "วิธีการชำระเงิน",
+      "PAYMENT_METHODS": {
+        "CREDIT": "บัตรเครดิต/เดบิต",
+        "PROMPTPAY": "พร้อมเพย์",
+        "CASH": "เงินสด"
+      },
+      "PAYMENT_STATUS": {
+        "PAID": "ชำระเงินแล้ว",
+        "PENDING": "รอชำระเงิน",
+        "FAILED": "ชำระเงินไม่สำเร็จ"
+      },
+      "ORDER_STATUS": {
+        "PENDING": "รอดำเนินการ",
+        "PROCESSING": "กำลังดำเนินการ",
+        "COMPLETED": "เสร็จสมบูรณ์",
+        "CANCELLED": "ยกเลิก"
+      }
+    },
+    "PROFILE": {
+      "TITLE": "โปรไฟล์",
+      "CHANGE_PHOTO": "เปลี่ยนรูปโปรไฟล์",
+      "REMOVE_PHOTO": "ลบรูปโปรไฟล์",
+      "REMOVE_PHOTO_CONFIRM_TITLE": "ยืนยันการลบรูปโปรไฟล์",
+      "REMOVE_PHOTO_CONFIRM_TEXT": "คุณแน่ใจหรือไม่ที่จะลบรูปโปรไฟล์?",
+      "REMOVE_PHOTO_CONFIRM_BUTTON": "ลบรูปโปรไฟล์",
+      "REMOVE_PHOTO_SUCCESS": "ลบรูปโปรไฟล์สำเร็จ",
+      "REMOVE_PHOTO_ERROR": "ไม่สามารถลบรูปโปรไฟล์ได้",
+      "FILE_SIZE_ERROR": "ขนาดไฟล์ต้องไม่เกิน 5MB",
+      "FILE_TYPE_ERROR": "รองรับเฉพาะไฟล์รูปภาพ (JPEG, PNG, GIF)",
+      "UPLOAD_SUCCESS": "อัพโหลดรูปโปรไฟล์สำเร็จ",
+      "UPLOAD_ERROR": "ไม่สามารถอัพโหลดรูปโปรไฟล์ได้",
+      "NAME": "ชื่อ",
+      "EMAIL": "อีเมล",
+      "PHONE": "เบอร์โทรศัพท์",
+      "ADDRESS_LABEL": "ที่อยู่",
+      "ADDRESS": "บ้านเลขที่/หมู่บ้าน",
+      "ADDRESS_PLACEHOLDER": "กรอกบ้านเลขที่หรือหมู่บ้าน",
+      "SUBDISTRICT": "ตำบล/แขวง",
+      "SUBDISTRICT_PLACEHOLDER": "กรอกตำบลหรือแขวง",
+      "DISTRICT": "อำเภอ/เขต",
+      "DISTRICT_PLACEHOLDER": "กรอกอำเภอหรือเขต",
+      "PROVINCE": "จังหวัด",
+      "PROVINCE_PLACEHOLDER": "กรอกจังหวัด",
+      "POSTAL_CODE": "รหัสไปรษณีย์",
+      "POSTAL_CODE_PLACEHOLDER": "กรอกรหัสไปรษณีย์",
+      "SAVE": "บันทึก",
+      "CHANGE_PASSWORD": "เปลี่ยนรหัสผ่าน",
+      "CHANGE_PASSWORD_TITLE": "เปลี่ยนรหัสผ่าน",
+      "CURRENT_PASSWORD": "รหัสผ่านปัจจุบัน",
+      "CURRENT_PASSWORD_PLACEHOLDER": "กรอกรหัสผ่านปัจจุบัน",
+      "NEW_PASSWORD": "รหัสผ่านใหม่",
+      "NEW_PASSWORD_PLACEHOLDER": "กรอกรหัสผ่านใหม่",
+      "CONFIRM_PASSWORD": "ยืนยันรหัสผ่านใหม่",
+      "CONFIRM_PASSWORD_PLACEHOLDER": "กรอกรหัสผ่านใหม่อีกครั้ง",
+      "CHANGE_PASSWORD_CONFIRM": "เปลี่ยนรหัสผ่าน",
+      "FILL_ALL_FIELDS": "กรุณากรอกข้อมูลให้ครบถ้วน",
+      "PASSWORD_LENGTH_ERROR": "รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร",
+      "PASSWORD_MISMATCH": "รหัสผ่านไม่ตรงกัน",
+      "PASSWORD_CHANGE_SUCCESS": "เปลี่ยนรหัสผ่านสำเร็จ",
+      "PASSWORD_CHANGE_ERROR": "ไม่สามารถเปลี่ยนรหัสผ่านได้",
+      "REQUIRED_FIELDS_ERROR": "กรุณากรอกชื่อและอีเมล",
+      "INVALID_EMAIL_ERROR": "รูปแบบอีเมลไม่ถูกต้อง",
+      "INVALID_PHONE_ERROR": "รูปแบบเบอร์โทรศัพท์ไม่ถูกต้อง",
+      "UPDATE_SUCCESS": "อัพเดทข้อมูลสำเร็จ",
+      "UPDATE_ERROR": "ไม่สามารถอัพเดทข้อมูลได้",
+      "EMAIL_EXISTS_ERROR": "อีเมลนี้ถูกใช้งานแล้ว"
+    },
+    "404": {
+      "message": "ขออภัย ไม่พบหน้าที่คุณต้องการ หรือหน้านี้อาจถูกย้ายไปที่อื่น",
+      "backToHome": "กลับหน้าหลัก"
+    },
+    "RESET_PASSWORD": {
+      "TITLE": "รีเซ็ตรหัสผ่าน",
+      "NEW_PASSWORD": "รหัสผ่านใหม่",
+      "CONFIRM_PASSWORD": "ยืนยันรหัสผ่านใหม่",
+      "SUBMIT": "บันทึกรหัสผ่านใหม่",
+      "PASSWORD_REQUIRED": "กรุณากรอกรหัสผ่าน",
+      "PASSWORD_MIN_LENGTH": "รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร",
+      "CONFIRM_PASSWORD_REQUIRED": "กรุณายืนยันรหัสผ่าน",
+      "PASSWORD_MISMATCH": "รหัสผ่านไม่ตรงกัน"
+    },
+    "FORGOT_PASSWORD": {
+      "TITLE": "ลืมรหัสผ่าน",
+      "DESCRIPTION": "กรุณากรอกอีเมลที่ใช้ในการลงทะเบียน เราจะส่งลิงก์สำหรับรีเซ็ตรหัสผ่านไปให้คุณ",
+      "EMAIL": "อีเมล",
+      "EMAIL_PLACEHOLDER": "กรอกอีเมลของคุณ",
+      "EMAIL_REQUIRED": "กรุณากรอกอีเมล",
+      "EMAIL_INVALID": "รูปแบบอีเมลไม่ถูกต้อง",
+      "SUBMIT": "ส่งลิงก์รีเซ็ตรหัสผ่าน",
+      "SUCCESS_TITLE": "ส่งลิงก์รีเซ็ตรหัสผ่านแล้ว",
+      "SUCCESS_MESSAGE": "กรุณาตรวจสอบอีเมลของคุณเพื่อดำเนินการต่อ",
+      "ERROR_TITLE": "เกิดข้อผิดพลาด",
+      "ERROR_MESSAGE": "ไม่สามารถส่งลิงก์รีเซ็ตรหัสผ่านได้ กรุณาลองใหม่อีกครั้ง"
     }
-  }
+}

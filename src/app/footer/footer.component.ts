@@ -6,11 +6,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PrivacyPolicyComponent } from '../privacy-policy/privacy-policy.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, RouterModule, PrivacyPolicyComponent],
+  imports: [
+    CommonModule, 
+    FontAwesomeModule, 
+    RouterModule, 
+    PrivacyPolicyComponent,
+    TranslateModule
+  ],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })

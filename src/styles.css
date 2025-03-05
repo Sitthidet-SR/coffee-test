@@ -1,3 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 @import 'sweetalert2/dist/sweetalert2.min.css';
+
+/* Cookie Consent Styles */
+.cookie-consent {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 1rem;
+  z-index: 9999;
+}
+
+.cookie-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.accept-button, .decline-button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.accept-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.decline-button {
+  background-color: #f44336;
+  color: white;
+}

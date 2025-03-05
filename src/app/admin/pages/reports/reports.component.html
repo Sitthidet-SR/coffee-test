@@ -1,0 +1,52 @@
+<div class="container mx-auto p-6">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">รายงานยอดขาย</h1>
+    <button (click)="exportToPDF()" class="btn btn-primary">
+      <fa-icon [icon]="faDownload" class="mr-2"></fa-icon>
+      ดาวน์โหลด PDF
+    </button>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4 mb-8">
+    <div class="stat-card">
+      <h3>วันนี้</h3>
+      <p>{{ sales?.todayOrders || 0 }} รายการ</p>
+      <p>฿{{ formatNumber(sales?.today) }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>สัปดาห์นี้</h3>
+      <p>{{ sales?.weekOrders || 0 }} รายการ</p>
+      <p>฿{{ formatNumber(sales?.thisWeek) }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>เดือนนี้</h3>
+      <p>{{ sales?.monthOrders || 0 }} รายการ</p>
+      <p>฿{{ formatNumber(sales?.thisMonth) }}</p>
+    </div>
+  </div>
+
+  <h2 class="text-xl font-bold mb-4">
+    <fa-icon [icon]="faCrown" class="text-amber-500 mr-2"></fa-icon>
+    สินค้าขายดี
+  </h2>
+  <div class="overflow-x-auto">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>สินค้า</th>
+          <th class="text-center">จำนวนขาย</th>
+          <th class="text-right">ยอดขายรวม</th>
+          <th class="text-right">ราคาเฉลี่ย/ชิ้น</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of topProducts">
+          <td>{{ product.name }}</td>
+          <td class="text-center">{{ product.totalQuantity }} ชิ้น</td>
+          <td class="text-right">฿{{ formatNumber(product.totalAmount) }}</td>
+          <td class="text-right">฿{{ formatNumber(product.totalAmount / product.totalQuantity) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

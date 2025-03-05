@@ -1,14 +1,20 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faShoppingCart, faUser, faBars, faSearch, faTimes, faSignInAlt, faUserPlus, faSignOutAlt, faCoffee, faLanguage } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faUser, faBars, faSearch, faTimes, faSignInAlt, faUserPlus, faSignOutAlt, faCoffee, faLanguage, faCog, faMinus, faPlus, faTrash, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import { gsap } from 'gsap';
 import { RegisterComponent } from '../register/register.component';
 import { LoginComponent } from '../login/login.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../services/language.service';
 import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
+import Swal from 'sweetalert2';
+import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs';
+import { CartService } from '../services/cart.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +23,7 @@ import { LanguageSwitcherComponent } from '../language-switcher/language-switche
     CommonModule, 
     FontAwesomeModule, 
     FormsModule, 
+    RouterModule,
     RegisterComponent, 
     LoginComponent,
     TranslateModule,
@@ -38,6 +45,11 @@ export class NavbarComponent implements OnInit {
   faSignOutAlt = faSignOutAlt;
   faCoffee = faCoffee;
   faLanguage = faLanguage;
+  faCog = faCog;
+  faMinus = faMinus;
+  faPlus = faPlus;
+  faTrash = faTrash;
+  faShoppingBasket = faShoppingBasket;
 
   isMobileMenuOpen = false;
   isMobileSearchOpen = false;
@@ -47,64 +59,114 @@ export class NavbarComponent implements OnInit {
   isLoginModalOpen = false;
   isSearchOpen = false;
 
-  isLoggedIn = false;
   userProfile: string | null = null;
+  user: any = null;
+  profileImage: string = 'assets/images/default-avatar.jpg';
 
   isMobile = false;
 
   logoTimeline: gsap.core.Timeline | null = null;
   activeMenuIndex: number = 0;
 
-  constructor(private languageService: LanguageService) { }
+  showLogo = true;
+
+  isCartMenuOpen = false;
+  cartItems: any[] = [];
+  cartItemCount = 0;
+  cartTotal = 0;
+
+  isLoggedIn$: Observable<boolean>;
+  isAdmin$: Observable<boolean>;
+
+  constructor(
+    private languageService: LanguageService, 
+    private authService: AuthService,
+    private cartService: CartService,
+    private router: Router
+  ) {
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.isAdmin$ = this.authService.isAdmin$;
+    
+    this.cartService.openLoginModal.subscribe(() => {
+      this.openLoginModal();
+    });
+  }
 
   ngOnInit(): void {
     this.checkScreenSize();
     this.setupInitialAnimations();
     this.setupLogoAnimation();
-    this.checkLoginStatus();
+    this.loadUserProfile();
     this.setupMenuAnimations();
+
+    this.isLoggedIn$.subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.loadUserProfile();
+      } else {
+        this.userProfile = null;
+      }
+    });
+
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+      if (user?.profileImage) {
+        this.profileImage = user.profileImage.startsWith('http') 
+          ? user.profileImage 
+          : `${environment.imageBaseUrl}/${user.profileImage}`;
+      }
+    });
+
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartItems = items;
+      this.cartItemCount = items.length;
+      this.cartTotal = this.calculateCartTotal();
+    });
   }
 
-  checkLoginStatus(): void {
+  loadUserProfile() {
     const token = localStorage.getItem('token');
-    if (token) {
-      this.isLoggedIn = true;
-      const userDataString = localStorage.getItem('userData');
-      if (userDataString) {
-        try {
-          const userData = JSON.parse(userDataString);
-          if (userData.profileImage) {
-            if (userData.profileImage.startsWith('http')) {
-              this.userProfile = `http://localhost:5000/${userData.profileImage}`;
-              setTimeout(() => this.userProfile = this.userProfile, 0);
-              console.log('Final Profile Image URL:', this.userProfile);
-            } else {
-              this.userProfile = 'http://localhost:5000/' + userData.profileImage;
-            }
-          } else {
-            this.userProfile = 'https://via.placeholder.com/150';
-          }
-        } catch (error) {
-          console.error('Error parsing user data:', error);
-          this.userProfile = 'https://via.placeholder.com/150';
-        }
-      } else {
-        this.userProfile = 'https://via.placeholder.com/150';
-      }
-    } else {
-      this.isLoggedIn = false;
+    if (!token) {
       this.userProfile = null;
+      this.profileImage = 'assets/images/default-avatar.jpg';
+      return;
     }
-    console.log('Profile Image URL:', this.userProfile);
+    
+    this.authService.getProfile().subscribe({
+      next: (user) => {
+        this.user = user;
+        if (user?.profileImage) {
+          this.profileImage = user.profileImage.startsWith('http') 
+            ? user.profileImage 
+            : `${environment.imageBaseUrl}/${user.profileImage}`;
+        } else {
+          this.profileImage = 'assets/images/default-avatar.jpg';
+        }
+      },
+      error: (error) => {
+        console.error('Error loading profile:', error);
+        if (error.status === 401) {
+          this.authService.logout();
+          this.userProfile = null;
+          this.profileImage = 'assets/images/default-avatar.jpg';
+        }
+      }
+    });
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userData');
-    this.isLoggedIn = false;
+    this.authService.logout();
     this.userProfile = null;
     this.isUserMenuOpen = false;
-    window.location.reload();
+
+    Swal.fire({
+      icon: 'success',
+      title: 'ออกจากระบบสำเร็จ',
+      text: 'ขอบคุณที่ใช้บริการ',
+      timer: 1500,
+      showConfirmButton: false
+    }).then(() => {
+      window.location.reload();
+    });
   }
 
   @HostListener('window:resize')
@@ -133,6 +195,13 @@ export class NavbarComponent implements OnInit {
         searchContainerWrapper && 
         !searchContainerWrapper.contains(event.target as Node)) {
       this.isSearchOpen = false;
+    }
+
+    const cartMenuContainer = document.querySelector('.cart-menu-container');
+    if (this.isCartMenuOpen && 
+        cartMenuContainer && 
+        !cartMenuContainer.contains(event.target as Node)) {
+      this.isCartMenuOpen = false;
     }
   }
 
@@ -179,73 +248,22 @@ export class NavbarComponent implements OnInit {
   }
 
   setupLogoAnimation(): void {
-    this.logoTimeline = gsap.timeline({ repeat: -1, repeatDelay: 1.5 });
+    const logoContainer = document.querySelector('.navbar-logo');
+    const logoIcon = document.querySelector('.navbar-logo fa-icon');
+    
+    if (logoContainer && logoIcon) {
+      const logoTimeline = gsap.timeline({ paused: true });
+      
+      logoTimeline.to(logoIcon, {
+        rotate: 12,
+        scale: 1.1,
+        duration: 0.3,
+        ease: 'power2.out'
+      });
 
-    this.logoTimeline.to('.logo-text-jack', {
-      y: -8,
-      duration: 0.8,
-      ease: 'elastic.out(1.2, 0.5)'
-    });
-
-    this.logoTimeline.to('.logo-text-jack', {
-      y: 0,
-      duration: 0.8,
-      ease: 'elastic.out(1.2, 0.5)'
-    });
-
-    this.logoTimeline.to('.logo-icon', {
-      y: -10,
-      rotation: -15,
-      duration: 0.5,
-      ease: 'power2.out'
-    }, "-=0.3");
-
-    this.logoTimeline.to('.logo-icon', {
-      y: 0,
-      rotation: 0,
-      duration: 0.8,
-      ease: 'elastic.out(1.2, 0.3)'
-    });
-
-    this.logoTimeline.to('.logo-text-coffee', {
-      scale: 1.1,
-      duration: 0.7,
-      ease: 'power2.inOut'
-    }, "-=0.5");
-
-    this.logoTimeline.to('.logo-text-coffee', {
-      scale: 1,
-      duration: 0.7,
-      ease: 'power2.inOut'
-    });
-
-    this.logoTimeline.to('.logo-text-jack', {
-      color: '#f59e0b',
-      textShadow: '0 0 8px rgba(245, 158, 11, 0.5)',
-      duration: 0.8,
-      ease: 'sine.inOut'
-    }, "-=0.3");
-
-    this.logoTimeline.to('.logo-text-jack', {
-      color: '#f97316',
-      textShadow: 'none',
-      duration: 0.8,
-      ease: 'sine.inOut'
-    });
-
-    this.logoTimeline.to('.logo-text-coffee', {
-      color: '#44403c',
-      fontWeight: '700',
-      duration: 0.8,
-      ease: 'sine.inOut'
-    }, "-=0.8");
-
-    this.logoTimeline.to('.logo-text-coffee', {
-      color: '#1f2937',
-      fontWeight: '600',
-      duration: 0.8,
-      ease: 'sine.inOut'
-    });
+      logoContainer.addEventListener('mouseenter', () => logoTimeline.play());
+      logoContainer.addEventListener('mouseleave', () => logoTimeline.reverse());
+    }
   }
 
   toggleSearch(): void {
@@ -323,7 +341,7 @@ export class NavbarComponent implements OnInit {
 
   toggleLanguage(): void {
     this.languageService.toggleLanguage();
-  
+    
     gsap.fromTo('.language-icon',
       { rotate: 0 },
       { rotate: 360, duration: 0.7, ease: 'back.out(1.5)' }
@@ -338,26 +356,120 @@ export class NavbarComponent implements OnInit {
   }
 
   openLoginModal() {
+    if (this.isLoginModalOpen) {
+      this.closeLoginModal();
+      return;
+    }
+
+    if (this.isRegisterModalOpen) {
+      this.closeRegisterModal();
+    }
+
     this.isLoginModalOpen = true;
-    this.isRegisterModalOpen = false;
+    setTimeout(() => {
+      const loginModal = document.querySelector('app-login .login-modal-backdrop');
+      if (loginModal) {
+        (loginModal as HTMLElement).style.visibility = 'visible';
+        (loginModal as HTMLElement).style.zIndex = '1001';
+        gsap.to(loginModal, {
+          opacity: 1,
+          duration: 0.3
+        });
+      }
+    }, 0);
   }
 
   closeLoginModal() {
-    this.isLoginModalOpen = false;
-    this.checkLoginStatus();
+    const loginModal = document.querySelector('app-login .login-modal-backdrop');
+    if (loginModal) {
+      gsap.to(loginModal, {
+        opacity: 0,
+        duration: 0.3,
+        onComplete: () => {
+          this.isLoginModalOpen = false;
+          (loginModal as HTMLElement).style.visibility = 'hidden';
+        }
+      });
+    }
   }
 
   openRegisterModal() {
+    if (this.isRegisterModalOpen) {
+      this.closeRegisterModal();
+      return;
+    }
+
+    if (this.isLoginModalOpen) {
+      this.closeLoginModal();
+    }
+
     this.isRegisterModalOpen = true;
-    this.isLoginModalOpen = false;
+    setTimeout(() => {
+      const registerModal = document.querySelector('app-register .register-modal-backdrop');
+      if (registerModal) {
+        (registerModal as HTMLElement).style.visibility = 'visible';
+        (registerModal as HTMLElement).style.zIndex = '1001';
+        gsap.to(registerModal, {
+          opacity: 1,
+          duration: 0.3
+        });
+      }
+    }, 0);
   }
 
   closeRegisterModal() {
-    this.isRegisterModalOpen = false;
-    this.checkLoginStatus();
+    const registerModal = document.querySelector('app-register .register-modal-backdrop');
+    if (registerModal) {
+      gsap.to(registerModal, {
+        opacity: 0,
+        duration: 0.3,
+        onComplete: () => {
+          this.isRegisterModalOpen = false;
+          (registerModal as HTMLElement).style.visibility = 'hidden';
+        }
+      });
+    }
   }
 
-  get isEnglish(): boolean {
-    return this.languageService.isEnglish();
+  toggleCartMenu(event: Event): void {
+    event.stopPropagation();
+    this.isCartMenuOpen = !this.isCartMenuOpen;
+  }
+
+  calculateCartTotal(): number {
+    return this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  }
+
+  updateQuantity(item: any, change: number): void {
+    const newQuantity = item.quantity + change;
+    if (newQuantity > 0) {
+      this.cartService.updateQuantity(item.productId, newQuantity).subscribe({
+        next: () => {
+          item.quantity = newQuantity;
+          this.cartTotal = this.calculateCartTotal();
+        },
+        error: (error) => console.error('Error updating quantity:', error)
+      });
+    }
+  }
+
+  removeFromCart(item: any): void {
+    this.cartService.removeFromCart(item.productId).subscribe({
+      next: () => {
+        this.cartItems = this.cartItems.filter(i => i.productId !== item.productId);
+        this.cartTotal = this.calculateCartTotal();
+        this.cartItemCount = this.cartItems.length;
+      },
+      error: (error) => console.error('Error removing item:', error)
+    });
+  }
+
+  checkout(): void {
+    this.router.navigate(['/checkout']);
+    this.isCartMenuOpen = false;
+  }
+
+  get currentLanguage(): string {
+    return this.languageService.getCurrentLang();
   }
 }

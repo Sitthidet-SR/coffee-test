@@ -1,0 +1,108 @@
+<div class="container">
+  <h1 class="text-2xl font-bold mb-6">แดชบอร์ด</h1>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center">
+        <div class="p-3 rounded-full bg-blue-100 mr-4">
+          <fa-icon [icon]="faUsers" class="text-blue-500 text-xl"></fa-icon>
+        </div>
+        <div>
+          <p class="text-gray-500 text-sm">ผู้ใช้ทั้งหมด</p>
+          <p class="text-2xl font-semibold">{{dashboardStats.totalUsers || 0}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center">
+        <div class="p-3 rounded-full bg-amber-100 mr-4">
+          <fa-icon [icon]="faShoppingCart" class="text-amber-500 text-xl"></fa-icon>
+        </div>
+        <div>
+          <p class="text-gray-500 text-sm">คำสั่งซื้อที่รอดำเนินการ</p>
+          <p class="text-2xl font-semibold">{{dashboardStats.pendingOrders || 0}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center">
+        <div class="p-3 rounded-full bg-red-100 mr-4">
+          <fa-icon [icon]="faBoxOpen" class="text-red-500 text-xl"></fa-icon>
+        </div>
+        <div>
+          <p class="text-gray-500 text-sm">สินค้าใกล้หมด</p>
+          <p class="text-2xl font-semibold">{{dashboardStats.lowStockProducts || 0}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center">
+        <div class="p-3 rounded-full bg-green-100 mr-4">
+          <fa-icon [icon]="faUserCheck" class="text-green-500 text-xl"></fa-icon>
+        </div>
+        <div>
+          <p class="text-gray-500 text-sm">ยืนยันตัวตนแล้ว</p>
+          <p class="text-2xl font-semibold">{{dashboardStats.verifiedUsers || 0}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="bg-white rounded-lg shadow p-6 mb-8">
+    <h2 class="text-xl font-semibold mb-4">การดำเนินการด่วน</h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <button routerLink="../products" 
+              class="p-4 border rounded-lg hover:bg-amber-50 transition flex items-center justify-center">
+        <fa-icon [icon]="faCoffee" class="text-amber-600 mr-3"></fa-icon>
+        <span>จัดการสินค้า</span>
+      </button>
+      <button routerLink="../orders" 
+              class="p-4 border rounded-lg hover:bg-amber-50 transition flex items-center justify-center">
+        <fa-icon [icon]="faShoppingCart" class="text-amber-600 mr-3"></fa-icon>
+        <span>ดูคำสั่งซื้อ</span>
+      </button>
+      <button routerLink="../users" 
+              class="p-4 border rounded-lg hover:bg-amber-50 transition flex items-center justify-center">
+        <fa-icon [icon]="faUsers" class="text-amber-600 mr-3"></fa-icon>
+        <span>จัดการผู้ใช้</span>
+      </button>
+      <button routerLink="../reports" 
+              class="p-4 border rounded-lg hover:bg-amber-50 transition flex items-center justify-center">
+        <fa-icon [icon]="faChartLine" class="text-amber-600 mr-3"></fa-icon>
+        <span>ดูรายงาน</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-xl font-semibold mb-4">กิจกรรมล่าสุด</h2>
+    <div class="space-y-4">
+      <div *ngFor="let activity of recentActivities" 
+           class="flex items-center p-4 border rounded-lg">
+        <div class="w-2 h-2 rounded-full mr-4"
+             [ngClass]="{
+               'bg-green-500': activity.type === 'USER_REGISTER',
+               'bg-blue-500': activity.type === 'NEW_ORDER',
+               'bg-yellow-500': activity.type === 'PRODUCT_UPDATE',
+               'bg-purple-500': activity.type === 'USER_VERIFY'
+             }">
+        </div>
+        <div>
+          <p class="font-medium">{{activity.message}}</p>
+          <p class="text-sm text-gray-500">{{activity.timestamp | date:'dd/MM/yyyy HH:mm'}}</p>
+        </div>
+      </div>
+
+      <div *ngIf="recentActivities.length === 0" 
+           class="text-center text-gray-500 py-4">
+        ไม่มีกิจกรรมล่าสุด
+      </div>
+    </div>
+  </div>
+</div> 

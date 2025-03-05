@@ -109,11 +109,38 @@
 }
 
 .stat-item {
-  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.stat-item:hover {
-  transform: translateY(-5px);
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.stat-item:hover::before {
+  left: 100%;
+}
+
+.stat-number {
+  display: inline-block;
+  position: relative;
+}
+
+.scrambled-text {
+  color: #f59e0b;
 }
 
 .popular-carousel {
@@ -195,5 +222,104 @@
   
   .product-card {
     width: 85vw;
+  }
+}
+
+.popular-title {
+  perspective: 1000px;
+}
+
+.popular-title span {
+  display: inline-block;
+}
+
+.popular-description {
+  transform: translateY(20px);
+}
+
+[data-gsap="title-container"] {
+  overflow: hidden;
+}
+
+.title-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.signature-text {
+  position: relative;
+  display: inline-block;
+}
+
+.signature-underline {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  transform: scaleX(0);
+  transform-origin: left;
+  border-radius: 2px;
+  transition: transform 0.3s ease;
+  z-index: -1;
+}
+
+.badge-tag {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero-description {
+  transform: translateY(30px);
+}
+
+.coffee-text {
+  display: inline-block;
+  position: relative;
+  transform: translateY(100%);
+  opacity: 0;
+  text-shadow: 0 0 0 rgba(245, 158, 11, 0);
+  transition: text-shadow 0.3s ease;
+}
+
+/* เพิ่ม hover effect */
+.coffee-text:hover {
+  animation-play-state: paused;
+  text-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
+}
+
+/* เพิ่ม gradient text effect */
+.coffee-text {
+  background: linear-gradient(45deg, #f59e0b, #fbbf24);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+}
+
+/* เพิ่ม sparkle effect */
+.coffee-text::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: sparkle 3s linear infinite;
+}
+
+@keyframes sparkle {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
   }
 }

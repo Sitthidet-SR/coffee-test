@@ -7,38 +7,31 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class LanguageService {
-  private currentLangSubject = new BehaviorSubject<string>('en');
-  currentLang$ = this.currentLangSubject.asObservable();
-  
+  private currentLanguage = new BehaviorSubject<string>('th');
+
   constructor(private translate: TranslateService) {
-    this.initLanguage();
+    // Set default language
+    this.translate.setDefaultLang('th');
+    
+    // Try to get language from localStorage
+    const savedLang = localStorage.getItem('language');
+    if (savedLang) {
+      this.translate.use(savedLang);
+      this.currentLanguage.next(savedLang);
+    } else {
+      this.translate.use('th');
+    }
   }
-  
-  initLanguage(): void {
-    const savedLang = localStorage.getItem('selectedLanguage');
-    const defaultLang = savedLang || 'en';
-    this.translate.setDefaultLang(defaultLang);
-    this.translate.use(defaultLang);
-    this.currentLangSubject.next(defaultLang);
-  }
-  
-  changeLanguage(lang: string): void {
-    this.translate.use(lang);
-    localStorage.setItem('selectedLanguage', lang);
-    this.currentLangSubject.next(lang);
-  }
-  
+
   getCurrentLang(): string {
-    return this.currentLangSubject.value;
-  }
-  
-  isEnglish(): boolean {
-    return this.currentLangSubject.value === 'en';
+    return this.currentLanguage.getValue();
   }
 
   toggleLanguage(): void {
     const currentLang = this.getCurrentLang();
-    const newLang = currentLang === 'en' ? 'th' : 'en';
-    this.changeLanguage(newLang);
+    const newLang = currentLang === 'th' ? 'en' : 'th';
+    this.translate.use(newLang);
+    this.currentLanguage.next(newLang);
+    localStorage.setItem('language', newLang);
   }
 }

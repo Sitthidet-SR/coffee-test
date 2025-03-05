@@ -6,44 +6,64 @@
   <div class="container mx-auto py-24 px-4 relative">
     <div class="flex flex-col lg:flex-row items-center">
       <div class="w-full lg:w-1/2 z-10" data-gsap="fade-in">
-        <div class="space-y-6">
-          <span class="bg-amber-100 text-amber-500 px-4 py-1 rounded-full text-sm font-semibold inline-block">Most Popular</span>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
-            <span class="coffee-title">Signature </span> 
-            <span class="text-amber-500 coffee-title"> Coffee</span>
+        <div class="space-y-8">
+          <span class="bg-amber-100 text-amber-500 px-4 py-1 rounded-full text-sm font-semibold inline-block badge-tag">
+            {{ 'HERO.BADGE' | translate }}
+          </span>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 title-container">
+            <span class="inline-flex items-baseline gap-3">
+              <span class="signature-text relative inline-block">
+                {{ 'HERO.TITLE.SIGNATURE' | translate }}
+                <span class="signature-underline absolute bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 transform origin-left scale-x-0"></span>
+              </span>
+              <span class="text-amber-500 coffee-text inline-block">{{ 'HERO.TITLE.COFFEE' | translate }}</span>
+            </span>
           </h1>
-          <p class="text-gray-600 text-lg">Experience our award-winning signature blend, crafted from the finest beans around the world.</p>
+          <p class="text-gray-600 text-lg hero-description opacity-0">
+            {{ 'HERO.DESCRIPTION' | translate }}
+          </p>
           
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 py-6 my-2">
-            <div class="stat-item bg-white rounded-lg shadow-sm p-4 flex items-center justify-center text-center">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 py-8">
+            <div class="stat-item bg-white rounded-lg shadow-sm p-4 flex items-center justify-center text-center transform hover:shadow-lg transition-all duration-300">
               <fa-icon [icon]="faStar" class="text-amber-400 text-xl mr-3"></fa-icon>
               <div>
-                <p class="font-bold text-gray-900 text-lg">4.9/5</p>
-                <p class="text-sm text-gray-500">Reviews</p>
+                <p class="font-bold text-gray-900 text-lg">
+                  <span class="stat-number" data-value="4.9" data-decimals="1">0</span>
+                  <span class="text-amber-500">/5</span>
+                </p>
+                <p class="text-sm text-gray-500">{{ 'HERO.STATS.REVIEWS' | translate }}</p>
               </div>
             </div>
             
-            <div class="stat-item bg-white rounded-lg shadow-sm p-4 flex items-center justify-center text-center">
+            <div class="stat-item bg-white rounded-lg shadow-sm p-4 flex items-center justify-center text-center transform hover:shadow-lg transition-all duration-300">
               <fa-icon [icon]="faHeart" class="text-red-400 text-xl mr-3"></fa-icon>
               <div>
-                <p class="font-bold text-gray-900 text-lg">15K+</p>
-                <p class="text-sm text-gray-500">Likes</p>
+                <p class="font-bold text-gray-900 text-lg">
+                  <span class="stat-number" data-value="15" data-decimals="0">0</span>
+                  <span class="text-amber-500">K+</span>
+                </p>
+                <p class="text-sm text-gray-500">{{ 'HERO.STATS.LIKES' | translate }}</p>
               </div>
             </div>
             
-            <div class="stat-item bg-white rounded-lg shadow-sm p-4 flex items-center justify-center text-center">
+            <div class="stat-item bg-white rounded-lg shadow-sm p-4 flex items-center justify-center text-center transform hover:shadow-lg transition-all duration-300">
               <fa-icon [icon]="faMugHot" class="text-amber-500 text-xl mr-3"></fa-icon>
               <div>
-                <p class="font-bold text-gray-900 text-lg">100K+</p>
-                <p class="text-sm text-gray-500">Sales</p>
+                <p class="font-bold text-gray-900 text-lg">
+                  <span class="stat-number" data-value="100" data-decimals="0">0</span>
+                  <span class="text-amber-500">K+</span>
+                </p>
+                <p class="text-sm text-gray-500">{{ 'HERO.STATS.SALES' | translate }}</p>
               </div>
             </div>
           </div>
           
-          <button class="cta-button bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 flex items-center gap-2">
-            <fa-icon [icon]="faShoppingCart"></fa-icon>
-            Order Now
-          </button>
+          <div class="pt-4">
+            <button class="cta-button bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 flex items-center gap-2">
+              <fa-icon [icon]="faShoppingCart"></fa-icon>
+              {{ 'HERO.CTA' | translate }}
+            </button>
+          </div>
         </div>
       </div>
       
@@ -58,28 +78,50 @@
   
   <div class="services-section relative -mt-32 z-20 pb-16">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-4 text-center">Popular menu</h2>
-      <p class="text-gray-600 mb-12 max-w-2xl mx-auto text-center">Try our popular menu, carefully selected by our customers.</p>
+      <div class="text-center mb-8" data-gsap="title-container">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 popular-title">
+          <span class="relative inline-block">
+            {{ 'HERO.POPULAR.TITLE' | translate }}
+            <span class="absolute -bottom-2 left-0 w-full h-1 bg-amber-400 scale-x-0 transform origin-left"></span>
+          </span>
+          <span class="text-amber-500 ml-2">{{ 'HERO.POPULAR.MENU' | translate }}</span>
+        </h2>
+        <p class="text-gray-600 text-lg max-w-2xl mx-auto popular-description opacity-0 mb-8">
+          {{ 'HERO.POPULAR.DESCRIPTION' | translate }}
+        </p>
+      </div>
       
       <div *ngIf="loading" class="flex justify-center items-center py-16">
         <fa-icon [icon]="faSpinner" class="text-amber-500 text-4xl animate-spin"></fa-icon>
       </div>
       
       <div *ngIf="!loading" class="relative overflow-hidden" #carouselContainer>
-        <div class="popular-carousel flex transition-transform duration-500 ease-in-out" [style.transform]="'translateX(-' + currentSlide * slideWidth + 'px)'">
-          <div *ngFor="let product of popularMenu" class="product-card min-w-[280px] sm:min-w-[320px] md:min-w-[360px] px-3">
+        <div class="popular-carousel flex">
+          <div *ngFor="let product of infiniteProducts" 
+               class="product-card min-w-[280px] sm:min-w-[320px] md:min-w-[360px] px-3"
+               (mouseenter)="pauseCarousel()"
+               (mouseleave)="resumeCarousel()">
             <div class="service-card bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-amber-500 h-full flex flex-col">
               <div class="relative h-52 overflow-hidden bg-amber-50">
-                <img [src]="getImageUrl(product.image)" [alt]="product.name" class="w-full h-full object-contain transform hover:scale-105 transition-transform duration-500">
+                <img [src]="getImageUrl(product.images)" [alt]="product.name" class="w-full h-full object-contain transform hover:scale-105 transition-transform duration-500">
                 <div class="absolute top-3 right-3 bg-amber-500 text-white text-sm font-bold px-3 py-1 rounded-full shadow-md">
-                  {{product.price | currency:'฿ ':'symbol':'1.0-0'}}
+                  {{ 'HERO.CAROUSEL.PRICE' | translate: { price: product.price } }}
                 </div>
               </div>
               <div class="p-6 flex flex-col flex-grow">
-                <h3 class="text-xl font-bold mb-2 text-gray-800">{{product.name}}</h3>
-                <p class="text-gray-600 mb-4 line-clamp-2">{{product.description}}</p>
+                <div class="flex items-center gap-2 mb-2">
+                  <fa-icon [icon]="faStar" class="text-amber-400"></fa-icon>
+                  <span class="text-sm text-gray-600">{{product.ratings.toFixed(1)}} ({{product.numReviews}} {{ 'HERO.CAROUSEL.REVIEWS' | translate }})</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2 leading-tight">{{ product.name }}</h3>
+                <p class="text-gray-600 mb-4 line-clamp-3">{{ product.description }}</p>
+                <div class="flex items-center gap-2 mb-4">
+                  <span class="text-sm text-amber-600 bg-amber-50 px-3 py-1 rounded-full">
+                    {{product.category}}
+                  </span>
+                </div>
                 <button class="mt-auto bg-amber-50 hover:bg-amber-100 text-amber-500 font-semibold py-2 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2 border border-amber-200">
-                  Order Now
+                  {{ 'HERO.CAROUSEL.ORDER_NOW' | translate }}
                   <fa-icon [icon]="faArrowRight"></fa-icon>
                 </button>
               </div>
@@ -92,15 +134,6 @@
         </button>
         <button (click)="nextSlide()" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-3 shadow-md z-20 focus:outline-none transition-all duration-300 hover:scale-110">
           <fa-icon [icon]="faArrowRight" class="text-amber-500"></fa-icon>
-        </button>
-      </div>
-      
-      <div class="slider-nav flex justify-center gap-3 mt-8">
-        <button *ngFor="let dot of navigationDots; let i = index" 
-                [class.bg-amber-500]="currentSlide === i"
-                [class.bg-gray-300]="currentSlide !== i"
-                (click)="goToSlide(i)"
-                class="w-3 h-3 rounded-full hover:bg-amber-400 focus:outline-none transition-colors duration-300">
         </button>
       </div>
     </div>

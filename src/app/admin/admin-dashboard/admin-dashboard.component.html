@@ -1,0 +1,73 @@
+<div class="min-h-screen bg-gray-100">
+  <!-- Sidebar -->
+  <aside class="fixed top-0 left-0 h-screen w-64 bg-white shadow-lg">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h1 class="text-xl font-bold text-amber-600">Jack Coffee Admin</h1>
+    </div>
+    <nav class="p-4">
+      <ul class="space-y-2">
+        <li>
+          <a routerLink="./dashboard" routerLinkActive="text-amber-600 bg-amber-50" 
+            class="flex items-center p-2 rounded-lg hover:bg-amber-50 transition-colors">
+            <fa-icon [icon]="faHome" class="mr-3"></fa-icon>
+            <span>แดชบอร์ด</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="./products" routerLinkActive="text-amber-600 bg-amber-50"
+            class="flex items-center p-2 rounded-lg hover:bg-amber-50 transition-colors">
+            <fa-icon [icon]="faCoffee" class="mr-3"></fa-icon>
+            <span>จัดการสินค้า</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="./orders" routerLinkActive="text-amber-600 bg-amber-50"
+            class="flex items-center p-2 rounded-lg hover:bg-amber-50 transition-colors">
+            <fa-icon [icon]="faShoppingCart" class="mr-3"></fa-icon>
+            <span>คำสั่งซื้อ</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="./users" routerLinkActive="text-amber-600 bg-amber-50"
+            class="flex items-center p-2 rounded-lg hover:bg-amber-50 transition-colors">
+            <fa-icon [icon]="faUsers" class="mr-3"></fa-icon>
+            <span>จัดการผู้ใช้</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="./reports" routerLinkActive="text-amber-600 bg-amber-50"
+            class="flex items-center p-2 rounded-lg hover:bg-amber-50 transition-colors">
+            <fa-icon [icon]="faChartBar" class="mr-3"></fa-icon>
+            <span>รายงาน</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="./activities" routerLinkActive="text-amber-600 bg-amber-50"
+            class="flex items-center p-2 rounded-lg hover:bg-amber-50 transition-colors">
+            <fa-icon [icon]="faHistory" class="mr-3"></fa-icon>
+            <span>กิจกรรมทั้งหมด</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- เพิ่มปุ่มด้านล่าง -->
+      <div class="absolute bottom-0 left-0 w-full p-4 border-t">
+        <button (click)="goToHome()"
+          class="flex items-center w-full p-2 mb-2 text-gray-700 hover:bg-amber-50 rounded-lg transition-colors">
+          <fa-icon [icon]="faArrowLeft" class="mr-3"></fa-icon>
+          <span>กลับหน้าหลัก</span>
+        </button>
+        <button (click)="logout()"
+          class="flex items-center w-full p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+          <fa-icon [icon]="faSignOutAlt" class="mr-3"></fa-icon>
+          <span>ออกจากระบบ</span>
+        </button>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="ml-64 p-8">
+    <router-outlet></router-outlet>
+  </main>
+</div> 

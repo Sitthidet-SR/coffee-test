@@ -10,9 +10,214 @@
       "LOGIN": "Login",
       "LOGOUT": "Logout",
       "SIGN_UP": "Sign Up",
-      "WELCOME": "Welcome"
+      "WELCOME": "Welcome",
+      "PROFILE": "Profile",
+      "EDIT_PROFILE": "Edit Profile",
+      "ORDERS": "Order History",
+      "SETTINGS": "Settings",
+      "LANGUAGE": {
+        "TH": "Thai",
+        "EN": "English"
+      },
+      "ADMIN": "Admin Panel"
     },
     "SEARCH": {
       "PLACEHOLDER": "Search..."
+    },
+    "PRODUCTS": {
+      "TITLE": "Products",
+      "MENU": "Menu",
+      "CATEGORIES": {
+        "ALL": "All",
+        "COFFEE": "Coffee",
+        "TEA": "Tea",
+        "BAKERY": "Bakery",
+        "DESSERT": "Dessert"
+      },
+      "LOADING": "Loading amazing products...",
+      "NO_PRODUCTS": "No products available in this category. Please try another category.",
+      "TRY_AGAIN": "Try Again",
+      "ADD_TO_CART": "Add",
+      "ADDED_TO_CART": "Added",
+      "REVIEWS": "reviews",
+      "ERROR": {
+        "FETCH": "Failed to load products. Please try again later."
+      }
+    },
+    "HERO": {
+      "BADGE": "Most Popular",
+      "TITLE": {
+        "SIGNATURE": "Signature",
+        "COFFEE": "Coffee"
+      },
+      "DESCRIPTION": "Experience our award-winning signature blend, crafted from the finest beans around the world.",
+      "STATS": {
+        "REVIEWS": "Reviews",
+        "LIKES": "Likes",
+        "SALES": "Sales"
+      },
+      "CTA": "Order Now",
+      "POPULAR": {
+        "TITLE": "Popular",
+        "MENU": "menu",
+        "DESCRIPTION": "Discover our handcrafted selection of premium coffee and delightful treats."
+      },
+      "CAROUSEL": {
+        "PRICE": "฿ {{price}}",
+        "ORDER_NOW": "Order Now",
+        "REVIEWS": "reviews"
+      }
+    },
+    "FOOTER": {
+      "BRAND": {
+        "NAME": "Jack Coffee",
+        "TAGLINE": "Your daily dose of fresh coffee"
+      },
+      "QUICK_LINKS": "Quick Links",
+      "RESOURCES": "Resources",
+      "NEWSLETTER": {
+        "TITLE": "Newsletter",
+        "DESCRIPTION": "Subscribe for latest coffee updates",
+        "PLACEHOLDER": "Enter your Email",
+        "BUTTON": "Subscribe"
+      },
+      "COPYRIGHT": "Copyright ©{{year}} Jack Coffee. All rights reserved.",
+      "PRIVACY_POLICY": "Privacy Policy",
+      "TERMS": "Terms and Conditions"
+    },
+    "auth": {
+      "tooManyAttempts": "มีการพยายามเข้าสู่ระบบหลายครั้ง กรุณารอ 30 นาทีแล้วลองใหม่อีกครั้ง",
+      "invalidCredentials": "อีเมลหรือรหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบและลองใหม่อีกครั้ง"
+    },
+    "CART": {
+      "TITLE": "Shopping Cart",
+      "EMPTY": "Your cart is empty",
+      "TOTAL": "Total",
+      "CHECKOUT": "Checkout",
+      "REMOVE": "Remove item",
+      "QUANTITY": "Quantity",
+      "PRICE": "Price",
+      "ADDED_SUCCESS": "Added to cart successfully",
+      "UPDATE_SUCCESS": "Cart updated successfully",
+      "REMOVE_SUCCESS": "Item removed from cart",
+      "ERROR": {
+        "ADD": "Failed to add item to cart",
+        "UPDATE": "Failed to update cart",
+        "REMOVE": "Failed to remove item from cart",
+        "LOAD": "Failed to load cart"
+      }
+    },
+    "ORDERS": {
+      "TITLE": "Order History",
+      "NO_ORDERS": "You have no orders yet",
+      "START_SHOPPING": "Start Shopping",
+      "ORDER_ID": "Order ID",
+      "ORDERED_ON": "Ordered On",
+      "QUANTITY": "Quantity",
+      "PAYMENT_METHOD": "Payment Method",
+      "PAYMENT_METHODS": {
+        "CREDIT": "Credit/Debit Card",
+        "PROMPTPAY": "PromptPay",
+        "CASH": "Cash"
+      },
+      "PAYMENT_STATUS": {
+        "PAID": "Paid",
+        "PENDING": "Pending",
+        "FAILED": "Failed"
+      },
+      "ORDER_STATUS": {
+        "PENDING": "Pending",
+        "PROCESSING": "Processing",
+        "COMPLETED": "Completed",
+        "CANCELLED": "Cancelled"
+      }
+    },
+    "CHECKOUT": {
+      "TITLE": "Checkout",
+      "ORDER_SUMMARY": "Order Summary",
+      "QUANTITY": "Quantity",
+      "TOTAL": "Total",
+      "PAYMENT_METHOD": "Payment Method",
+      "CREDIT_CARD": "Credit/Debit Card",
+      "CASH": "Cash",
+      "PROCEED_TO_PAYMENT": "Proceed to Payment"
+    },
+    "ORDER": {
+      "SUCCESS": "Order Successful",
+      "CREATED_SUCCESS": "Your order has been created successfully",
+      "CASH_MESSAGE": "Please pay upon delivery",
+      "PROMPTPAY": {
+        "TITLE": "Pay with PromptPay",
+        "SCAN_MESSAGE": "Scan QR Code to pay",
+        "INSTRUCTION": "1. Open your banking app\n2. Scan QR Code\n3. Verify the amount\n4. Confirm payment",
+        "PAID_BUTTON": "I have paid"
+      },
+      "ERROR": {
+        "CREATE": "Unable to create order",
+        "PAYMENT_UPDATE": "Unable to update payment status",
+        "TRY_AGAIN": "Please try again"
+      }
+    },
+    "COMMON": {
+      "OK": "OK",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Success",
+      "ERROR": "Error",
+      "VIEW_ORDERS": "View Orders",
+      "CONTINUE_SHOPPING": "Continue Shopping",
+      "SAVING": "Saving..."
+    },
+    "PROFILE": {
+      "TITLE": "Profile",
+      "CHANGE_PHOTO": "Change Photo",
+      "REMOVE_PHOTO": "Remove Photo",
+      "REMOVE_PHOTO_CONFIRM_TITLE": "Confirm Photo Removal",
+      "REMOVE_PHOTO_CONFIRM_TEXT": "Are you sure you want to remove your profile photo?",
+      "REMOVE_PHOTO_CONFIRM_BUTTON": "Remove Photo",
+      "REMOVE_PHOTO_SUCCESS": "Profile photo removed successfully",
+      "REMOVE_PHOTO_ERROR": "Could not remove profile photo",
+      "FILE_SIZE_ERROR": "File size must not exceed 5MB",
+      "FILE_TYPE_ERROR": "Only image files are allowed (JPEG, PNG, GIF)",
+      "UPLOAD_SUCCESS": "Profile photo uploaded successfully",
+      "UPLOAD_ERROR": "Could not upload profile photo",
+      "NAME": "Name",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "ADDRESS_LABEL": "Address",
+      "ADDRESS": "House No./Village",
+      "ADDRESS_PLACEHOLDER": "Enter house number or village",
+      "SUBDISTRICT": "Subdistrict",
+      "SUBDISTRICT_PLACEHOLDER": "Enter subdistrict",
+      "DISTRICT": "District",
+      "DISTRICT_PLACEHOLDER": "Enter district",
+      "PROVINCE": "Province",
+      "PROVINCE_PLACEHOLDER": "Enter province",
+      "POSTAL_CODE": "Postal Code",
+      "POSTAL_CODE_PLACEHOLDER": "Enter postal code",
+      "SAVE": "Save",
+      "CHANGE_PASSWORD": "Change Password",
+      "CHANGE_PASSWORD_TITLE": "Change Password",
+      "CURRENT_PASSWORD": "Current Password",
+      "CURRENT_PASSWORD_PLACEHOLDER": "Enter current password",
+      "NEW_PASSWORD": "New Password",
+      "NEW_PASSWORD_PLACEHOLDER": "Enter new password",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "CONFIRM_PASSWORD_PLACEHOLDER": "Re-enter new password",
+      "CHANGE_PASSWORD_CONFIRM": "Change Password",
+      "FILL_ALL_FIELDS": "Please fill in all fields",
+      "PASSWORD_LENGTH_ERROR": "Password must be at least 6 characters long",
+      "PASSWORD_MISMATCH": "Passwords do not match",
+      "PASSWORD_CHANGE_SUCCESS": "Password changed successfully",
+      "PASSWORD_CHANGE_ERROR": "Could not change password",
+      "REQUIRED_FIELDS_ERROR": "Please enter name and email",
+      "INVALID_EMAIL_ERROR": "Invalid email format",
+      "INVALID_PHONE_ERROR": "Invalid phone number format",
+      "UPDATE_SUCCESS": "Profile updated successfully",
+      "UPDATE_ERROR": "Could not update profile",
+      "EMAIL_EXISTS_ERROR": "This email is already in use"
+    },
+    "404": {
+      "message": "Sorry, the page you're looking for doesn't exist or has been moved",
+      "backToHome": "Back to Home"
     }
-  }
+}

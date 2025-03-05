@@ -1,44 +1,88 @@
 <section class="py-16 bg-gray-50 min-h-screen">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <h2 class="text-4xl font-bold text-center text-gray-800 mb-12 relative">
-      Our Premium Products
-      <span class="block w-24 h-1 bg-gradient-to-r from-amber-800 to-amber-600 mx-auto mt-4 rounded"></span>
-    </h2>
+    <div class="text-center mb-8">
+      <h2 class="text-4xl font-bold text-center text-gray-800 relative products-title">
+        <span class="relative inline-block">
+          {{ 'PRODUCTS.TITLE' | translate }}
+        </span>
+        <span class="text-amber-500 ml-2 menu-text">{{ 'PRODUCTS.MENU' | translate }}</span>
+      </h2>
+    </div>
+    
+    <div class="container mx-auto px-4">
+      <div class="text-center">
+        <div class="search-container max-w-2xl mx-auto">
+          <app-search></app-search>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mb-8">
+      <div class="flex flex-wrap justify-center gap-4">
+        <button 
+          *ngFor="let category of categories" 
+          (click)="filterByCategory(category)"
+          [class.bg-amber-500]="selectedCategory === category"
+          [class.text-white]="selectedCategory === category"
+          [class.bg-white]="selectedCategory !== category"
+          [class.text-gray-700]="selectedCategory !== category"
+          class="px-6 py-2 rounded-full font-medium shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5"
+        >
+          {{ 'PRODUCTS.CATEGORIES.' + getCategoryTranslationKey(category) | translate }}
+        </button>
+      </div>
+    </div>
     
     <div class="flex flex-col items-center justify-center py-16" *ngIf="loading">
       <div class="w-12 h-12 border-4 border-amber-500 border-opacity-25 rounded-full border-t-amber-500 animate-spin mb-4"></div>
-      <p class="text-gray-600">Loading amazing products...</p>
+      <p class="text-gray-600">{{ 'PRODUCTS.LOADING' | translate }}</p>
     </div>
     
     <div class="text-center p-8 bg-red-50 rounded-lg border-l-4 border-red-500 my-8 shadow-md" *ngIf="error">
       <p class="text-red-600 mb-4">{{ error }}</p>
       <button (click)="fetchProducts()" class="px-5 py-2 bg-gradient-to-r from-amber-500 to-amber-400 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
-        Try Again
+        {{ 'PRODUCTS.TRY_AGAIN' | translate }}
       </button>
     </div>
     
     <div #productsContainer class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" *ngIf="!loading && !error">
-      <div #productCard class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden flex flex-col h-full border-t-4 border-amber-500" *ngFor="let product of products">
+      <div #productCard class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden flex flex-col h-full border-t-4 border-amber-500" *ngFor="let product of filteredProducts">
         <div class="relative h-56 bg-amber-50 product-image">
           <div class="product-glow"></div>
-          <img #productImage [src]="getImageUrl(product.image)" [alt]="product.name" class="w-full h-full object-contain p-4 transition-transform duration-500 hover:scale-105 relative z-10">
+          <img #productImage [src]="getImageUrl(product.images)" [alt]="product.name" 
+               class="w-11/12 h-11/12 object-contain p-4 relative z-10 mx-auto transition-transform duration-300 hover:scale-[1.03]">
         </div>
-        <div class="p-6 flex flex-col flex-grow">
+        <div class="p-6 grid grid-rows-[auto_auto_auto_1fr_auto] h-full">
+          <div class="flex items-center gap-2 mb-2">
+            <fa-icon [icon]="faStar" class="text-amber-400"></fa-icon>
+            <span class="text-sm text-gray-600">{{product.ratings.toFixed(1)}} ({{product.numReviews}} {{ 'PRODUCTS.REVIEWS' | translate }})</span>
+          </div>
           <h3 class="text-xl font-semibold text-gray-800 mb-2 leading-tight">{{ product.name }}</h3>
-          <p class="text-gray-600 mb-4 flex-grow line-clamp-3">{{ product.description }}</p>
-          <div class="flex items-center justify-between mt-auto">
-            <div class="text-2xl font-bold text-amber-500">{{ formatPrice(product.price) }}</div>
-            <button (click)="addToCart(product, $event)" class="flex items-center justify-center px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-400 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 space-x-2 relative overflow-hidden">
-              <fa-icon [icon]="faShoppingCart" class="cart-icon"></fa-icon>
-              <span>Add</span>
+          <p class="text-gray-600 mb-4 line-clamp-3">{{ product.description }}</p>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-sm text-amber-600 bg-amber-50 px-3 py-1 rounded-full">
+              {{product.category}}
+            </span>
+          </div>
+          <div class="grid grid-cols-2 items-center gap-4">
+            <div class="flex flex-col justify-center">
+              <div class="text-xl font-bold text-amber-500">{{ formatPrice(product.price) }}</div>
+              <div *ngIf="product.discountPrice" class="text-xs text-red-500 line-through">
+                {{ formatPrice(product.discountPrice) }}
+              </div>
+            </div>
+            <button (click)="addToCart(product, $event)" 
+                    class="inline-flex items-center justify-center h-10 px-4 bg-gradient-to-r from-amber-500 to-amber-400 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 justify-self-end">
+              <fa-icon [icon]="faShoppingCart" class="mr-2"></fa-icon>
+              <span>{{ 'PRODUCTS.ADD_TO_CART' | translate }}</span>
             </button>
           </div>
         </div>
       </div>
     </div>
     
-    <div class="text-center py-16 text-gray-600 text-lg" *ngIf="!loading && !error && products.length === 0">
-      <p>No products available at the moment. Please check back soon.</p>
+    <div class="text-center py-16 text-gray-600 text-lg" *ngIf="!loading && !error && filteredProducts.length === 0">
+      <p>{{ 'PRODUCTS.NO_PRODUCTS' | translate }}</p>
     </div>
   </div>
 </section>

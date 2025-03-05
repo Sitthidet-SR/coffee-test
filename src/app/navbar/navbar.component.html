@@ -2,9 +2,23 @@
   <div class="container mx-auto px-4 py-3">
     <div class="flex justify-between items-center">
       <div class="navbar-logo flex items-center cursor-pointer">
-        <div class="logo-text-jack text-amber-500 font-bold text-2xl mr-1">Jack</div>
-        <div class="logo-icon mr-1">☕</div>
-        <div class="logo-text-coffee text-gray-800 font-semibold text-2xl">Coffee</div>
+        <div class="flex items-center space-x-2">
+          <a routerLink="/" class="flex items-center no-underline">
+            <fa-icon [icon]="faCoffee" 
+              class="text-amber-600 text-2xl transform transition-transform duration-300"
+              [ngStyle]="{'visibility': showLogo ? 'visible' : 'hidden'}"
+              style="filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));">
+            </fa-icon>
+            <div class="ml-2 flex items-baseline" [ngStyle]="{'visibility': showLogo ? 'visible' : 'hidden'}">
+              <span class="text-2xl font-bold text-amber-600 tracking-tight logo-text-jack">
+                JACK
+              </span>
+              <span class="text-2xl font-light text-gray-600 tracking-tight logo-text-coffee ml-1">
+                COFFEE
+              </span>
+            </div>
+          </a>
+        </div>
       </div>
 
       <div class="hidden md:flex space-x-8 mx-auto">
@@ -32,7 +46,8 @@
             <fa-icon [icon]="faSearch"></fa-icon>
           </button>
 
-          <div *ngIf="isSearchOpen" class="search-container bg-white rounded-full overflow-hidden flex shadow-lg">
+          <div *ngIf="isSearchOpen" 
+            class="search-container bg-white rounded-full overflow-hidden flex shadow-lg border-2 border-amber-300/30 transition-all duration-300 ease-out">
             <div class="flex items-center px-4 py-2 w-64 animate-search-expand">
               <input id="searchInput" type="text" [(ngModel)]="searchQuery"
                 [placeholder]="'SEARCH.PLACEHOLDER' | translate" class="w-full bg-transparent outline-none border-none"
@@ -49,19 +64,79 @@
 
         <app-language-switcher></app-language-switcher>
 
-        <button class="nav-icon text-gray-700 hover:text-amber-500 transition-colors duration-300 relative"
-          aria-label="Shopping Cart">
-          <fa-icon [icon]="faShoppingCart"></fa-icon>
-          <span
-            class="absolute -top-2 -right-2 bg-amber-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
-        </button>
+        <div class="relative cart-menu-container">
+          <button (click)="toggleCartMenu($event)" 
+            class="nav-icon text-gray-700 hover:text-amber-500 transition-colors duration-300 relative"
+            aria-label="Shopping Cart">
+            <fa-icon [icon]="faShoppingCart"></fa-icon>
+            <span *ngIf="cartItemCount > 0"
+              class="absolute -top-2 -right-2 bg-amber-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+              {{cartItemCount}}
+            </span>
+          </button>
+
+          <!-- Cart Dropdown Menu -->
+          <div *ngIf="isCartMenuOpen" 
+            class="cart-menu absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg py-2 z-50">
+            <div class="px-4 py-2 border-b border-gray-100">
+              <h3 class="text-lg font-semibold text-gray-800">{{ 'CART.TITLE' | translate }}</h3>
+            </div>
+            
+            <div class="max-h-96 overflow-y-auto">
+              <div *ngIf="cartItems.length > 0; else emptyCart">
+                <div *ngFor="let item of cartItems" class="px-4 py-3 hover:bg-gray-50 flex items-center space-x-3">
+                  <img [src]="item.image" [alt]="item.name" class="w-16 h-16 object-cover rounded-md">
+                  <div class="flex-1">
+                    <h4 class="text-sm font-medium text-gray-800">{{item.name}}</h4>
+                    <div class="flex items-center justify-between mt-1">
+                      <span class="text-amber-600 font-medium">฿{{item.price}}</span>
+                      <div class="flex items-center space-x-2">
+                        <button (click)="updateQuantity(item, -1)" 
+                          class="text-gray-500 hover:text-amber-500 transition-colors duration-200">
+                          <fa-icon [icon]="faMinus" class="text-xs"></fa-icon>
+                        </button>
+                        <span class="text-sm text-gray-600">{{item.quantity}}</span>
+                        <button (click)="updateQuantity(item, 1)"
+                          class="text-gray-500 hover:text-amber-500 transition-colors duration-200">
+                          <fa-icon [icon]="faPlus" class="text-xs"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <button (click)="removeFromCart(item)" 
+                    class="text-gray-400 hover:text-red-500 transition-colors duration-200">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                  </button>
+                </div>
+              </div>
+              
+              <ng-template #emptyCart>
+                <div class="px-4 py-6 text-center">
+                  <fa-icon [icon]="faShoppingBasket" class="text-4xl text-gray-300 mb-2"></fa-icon>
+                  <p class="text-gray-500">{{ 'CART.EMPTY' | translate }}</p>
+                </div>
+              </ng-template>
+            </div>
+
+            <div *ngIf="cartItems.length > 0" class="px-4 py-3 border-t border-gray-100">
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-gray-600 font-medium">{{ 'CART.TOTAL' | translate }}</span>
+                <span class="text-lg font-semibold text-amber-600">฿{{cartTotal}}</span>
+              </div>
+              <button (click)="checkout()" 
+                class="w-full bg-amber-500 hover:bg-amber-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                {{ 'CART.CHECKOUT' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
 
         <div class="relative user-menu-container">
           <button (click)="toggleUserMenu($event)"
             class="nav-icon user-button text-gray-700 hover:text-amber-500 transition-colors duration-300"
             aria-label="User Account">
-            <ng-container *ngIf="isLoggedIn && userProfile; else defaultUserIcon">
-              <img [src]="userProfile" alt="Profile"
+            <ng-container *ngIf="isLoggedIn$ | async; else defaultUserIcon">
+              <img [src]="profileImage || 'assets/images/default-avatar.jpg'" alt="Profile"
                 class="h-10 w-10 rounded-full object-cover border-2 border-amber-500">
             </ng-container>
             <ng-template #defaultUserIcon>
@@ -69,26 +144,56 @@
             </ng-template>
           </button>
 
-          <div *ngIf="isUserMenuOpen"
-            class="user-menu absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
-            <ng-container *ngIf="isLoggedIn; else notLoggedInMenu">
-              <button (click)="logout()"
-                class="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-amber-50 hover:text-amber-500 transition-colors duration-200">
+          <!-- User Menu Dropdown -->
+          <div *ngIf="isUserMenuOpen" 
+            class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+            
+            <ng-container *ngIf="isLoggedIn$ | async; else notLoggedInMenu">
+              <!-- Profile -->
+              <a routerLink="/profile" 
+                class="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-600 transition-colors">
+                <fa-icon [icon]="faUser" class="mr-2"></fa-icon>
+                {{ 'USER_MENU.PROFILE' | translate }}
+              </a>
+              
+              <!-- Orders History -->
+              <a routerLink="/orders" 
+                class="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-600 transition-colors">
+                <fa-icon [icon]="faShoppingBasket" class="mr-2"></fa-icon>
+                {{ 'USER_MENU.ORDERS' | translate }}
+              </a>
+
+              <!-- Admin Panel (if admin) -->
+              <a *ngIf="isAdmin$ | async" routerLink="/admin"
+                class="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-600 transition-colors">
+                <fa-icon [icon]="faCog" class="mr-2"></fa-icon>
+                {{ 'USER_MENU.ADMIN' | translate }}
+              </a>
+
+              <!-- Divider -->
+              <div class="border-t border-gray-100 my-2"></div>
+
+              <!-- Logout -->
+              <button (click)="logout()" 
+                class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition-colors">
                 <fa-icon [icon]="faSignOutAlt" class="mr-2"></fa-icon>
-                <span>{{ 'USER_MENU.LOGOUT' | translate }}</span>
+                {{ 'USER_MENU.LOGOUT' | translate }}
               </button>
             </ng-container>
 
             <ng-template #notLoggedInMenu>
-              <button (click)="openLoginModal()"
-                class="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-amber-50 hover:text-amber-500 transition-colors duration-200">
+              <!-- Login -->
+              <button (click)="openLoginModal()" 
+                class="w-full text-left px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-600 transition-colors">
                 <fa-icon [icon]="faSignInAlt" class="mr-2"></fa-icon>
-                <span>{{ 'USER_MENU.LOGIN' | translate }}</span>
+                {{ 'USER_MENU.LOGIN' | translate }}
               </button>
+
+              <!-- Register -->
               <button (click)="openRegisterModal()"
-                class="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-amber-50 hover:text-amber-500 transition-colors duration-200">
+                class="w-full text-left px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-600 transition-colors">
                 <fa-icon [icon]="faUserPlus" class="mr-2"></fa-icon>
-                <span>{{ 'USER_MENU.SIGN_UP' | translate }}</span>
+                {{ 'USER_MENU.SIGN_UP' | translate }}
               </button>
             </ng-template>
           </div>
@@ -127,7 +232,8 @@
     </div>
   </div>
 
-  <div *ngIf="isMobileMenuOpen" class="mobile-menu md:hidden bg-white shadow-lg py-4">
+  <div *ngIf="isMobileMenuOpen" 
+    class="mobile-menu md:hidden bg-white shadow-lg py-4 transform-gpu transition-all duration-300 ease-out">
     <div class="container mx-auto px-4">
       <div class="flex flex-col space-y-4">
         <a href="#" class="text-gray-700 hover:text-amber-500 transition-colors duration-300 py-2 font-semibold">{{
@@ -145,10 +251,10 @@
           <div class="flex flex-col space-y-2 mt-4">
             <app-language-switcher></app-language-switcher>
 
-            <ng-container *ngIf="isLoggedIn; else mobileNotLoggedIn">
+            <ng-container *ngIf="isLoggedIn$ | async; else mobileNotLoggedIn">
               <div class="flex items-center py-2 space-x-3">
                 <div class="flex-shrink-0">
-                  <img [src]="userProfile" alt="Profile"
+                  <img [src]="profileImage || 'assets/images/default-avatar.jpg'" alt="Profile"
                     class="h-8 w-8 rounded-full object-cover border-2 border-amber-500">
                 </div>
                 <span class="text-gray-700 truncate">{{ 'USER_MENU.WELCOME' | translate }}</span>
@@ -179,11 +285,15 @@
     </div>
   </div>
 
-  <app-register [isOpen]="isRegisterModalOpen" (closeModalEvent)="closeRegisterModal()"
+  <app-register 
+    [isOpen]="isRegisterModalOpen" 
+    (closeModalEvent)="closeRegisterModal()"
     (switchToLoginEvent)="openLoginModal()">
   </app-register>
 
-  <app-login [isOpen]="isLoginModalOpen" (closeModalEvent)="closeLoginModal()"
+  <app-login 
+    [isOpen]="isLoginModalOpen" 
+    (closeModalEvent)="closeLoginModal()"
     (switchToRegisterEvent)="openRegisterModal()">
   </app-login>
 </nav>
